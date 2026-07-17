@@ -1,0 +1,73 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pusat Dusun Wareng",
+                "category": "Pemerintahan",
+                "description": "Titik sementara pusat kegiatan Dusun Wareng.",
+                "address": "Dusun Wareng, Sumberarum, Tempuran, Magelang",
+                "status": "temporary"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    110.18639,
+                    -7.57167
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Tempat Ibadah",
+                "category": "Keagamaan",
+                "description": "Contoh lokasi fasilitas keagamaan.",
+                "address": "Dusun Wareng, Sumberarum",
+                "status": "temporary"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    110.18715,
+                    -7.57125
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kawasan Pertanian",
+                "category": "Pertanian",
+                "description": "Contoh lokasi kawasan pertanian masyarakat.",
+                "address": "Dusun Wareng, Sumberarum",
+                "status": "temporary"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    110.18555,
+                    -7.57215
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Lokasi UMKM",
+                "category": "Ekonomi",
+                "description": "Contoh lokasi kegiatan usaha masyarakat.",
+                "address": "Dusun Wareng, Sumberarum",
+                "status": "temporary"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    110.18755,
+                    -7.57205
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,110 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Jalan Utama Wareng",
+                "road_type": "Jalan Utama",
+                "surface": "Belum diverifikasi",
+                "condition": "Belum diverifikasi",
+                "status": "temporary"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        110.18470,
+                        -7.57185
+                    ],
+                    [
+                        110.18545,
+                        -7.57165
+                    ],
+                    [
+                        110.18635,
+                        -7.57145
+                    ],
+                    [
+                        110.18720,
+                        -7.57120
+                    ],
+                    [
+                        110.18825,
+                        -7.57095
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Jalan Lingkungan 1",
+                "road_type": "Jalan Lingkungan",
+                "surface": "Belum diverifikasi",
+                "condition": "Belum diverifikasi",
+                "status": "temporary"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        110.18620,
+                        -7.57285
+                    ],
+                    [
+                        110.18625,
+                        -7.57210
+                    ],
+                    [
+                        110.18635,
+                        -7.57145
+                    ],
+                    [
+                        110.18645,
+                        -7.57065
+                    ],
+                    [
+                        110.18655,
+                        -7.56995
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Jalan Lingkungan 2",
+                "road_type": "Jalan Lingkungan",
+                "surface": "Belum diverifikasi",
+                "condition": "Belum diverifikasi",
+                "status": "temporary"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        110.18515,
+                        -7.57085
+                    ],
+                    [
+                        110.18575,
+                        -7.57110
+                    ],
+                    [
+                        110.18635,
+                        -7.57145
+                    ],
+                    [
+                        110.18695,
+                        -7.57190
+                    ],
+                    [
+                        110.18755,
+                        -7.57235
+                    ]
+                ]
+            }
+        }
+    ]
+}

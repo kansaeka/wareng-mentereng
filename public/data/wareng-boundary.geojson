@@ -1,0 +1,54 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Batas Sementara Dusun Wareng",
+                "category": "Batas Wilayah",
+                "description": "Poligon sementara untuk latihan pengembangan WebGIS.",
+                "status": "temporary",
+                "source": "Data simulasi"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            110.18480,
+                            -7.57300
+                        ],
+                        [
+                            110.18660,
+                            -7.57330
+                        ],
+                        [
+                            110.18810,
+                            -7.57255
+                        ],
+                        [
+                            110.18830,
+                            -7.57035
+                        ],
+                        [
+                            110.18675,
+                            -7.56980
+                        ],
+                        [
+                            110.18510,
+                            -7.57010
+                        ],
+                        [
+                            110.18455,
+                            -7.57160
+                        ],
+                        [
+                            110.18480,
+                            -7.57300
+                        ]
+                    ]
+                ]
+            }
+        }
+    ]
+}

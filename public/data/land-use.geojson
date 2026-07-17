@@ -1,0 +1,185 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kawasan Permukiman Wareng",
+                "land_use": "Permukiman",
+                "description": "Area permukiman sementara untuk simulasi pengembangan WebGIS.",
+                "area_ha": null,
+                "status": "temporary",
+                "source": "Data simulasi"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            110.18555,
+                            -7.57235
+                        ],
+                        [
+                            110.18675,
+                            -7.57225
+                        ],
+                        [
+                            110.18745,
+                            -7.57155
+                        ],
+                        [
+                            110.18720,
+                            -7.57075
+                        ],
+                        [
+                            110.18620,
+                            -7.57055
+                        ],
+                        [
+                            110.18545,
+                            -7.57115
+                        ],
+                        [
+                            110.18555,
+                            -7.57235
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Lahan Pertanian Barat",
+                "land_use": "Pertanian",
+                "description": "Area pertanian sementara yang menggambarkan lahan budidaya masyarakat.",
+                "area_ha": null,
+                "status": "temporary",
+                "source": "Data simulasi"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            110.18480,
+                            -7.57295
+                        ],
+                        [
+                            110.18565,
+                            -7.57285
+                        ],
+                        [
+                            110.18555,
+                            -7.57115
+                        ],
+                        [
+                            110.18505,
+                            -7.57025
+                        ],
+                        [
+                            110.18455,
+                            -7.57155
+                        ],
+                        [
+                            110.18480,
+                            -7.57295
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kawasan Kebun Utara",
+                "land_use": "Kebun",
+                "description": "Area kebun sementara untuk simulasi pemetaan vegetasi dan tanaman masyarakat.",
+                "area_ha": null,
+                "status": "temporary",
+                "source": "Data simulasi"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            110.18505,
+                            -7.57025
+                        ],
+                        [
+                            110.18670,
+                            -7.56980
+                        ],
+                        [
+                            110.18815,
+                            -7.57035
+                        ],
+                        [
+                            110.18720,
+                            -7.57075
+                        ],
+                        [
+                            110.18620,
+                            -7.57055
+                        ],
+                        [
+                            110.18545,
+                            -7.57115
+                        ],
+                        [
+                            110.18505,
+                            -7.57025
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Ruang Terbuka Timur",
+                "land_use": "Ruang Terbuka",
+                "description": "Area ruang terbuka sementara yang belum diklasifikasikan secara resmi.",
+                "area_ha": null,
+                "status": "temporary",
+                "source": "Data simulasi"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            110.18745,
+                            -7.57155
+                        ],
+                        [
+                            110.18720,
+                            -7.57075
+                        ],
+                        [
+                            110.18815,
+                            -7.57035
+                        ],
+                        [
+                            110.18825,
+                            -7.57245
+                        ],
+                        [
+                            110.18735,
+                            -7.57250
+                        ],
+                        [
+                            110.18675,
+                            -7.57225
+                        ],
+                        [
+                            110.18745,
+                            -7.57155
+                        ]
+                    ]
+                ]
+            }
+        }
+    ]
+}
