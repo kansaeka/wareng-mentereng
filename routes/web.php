@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Facility;
 use App\Http\Controllers\Api\FacilityGeoJsonController;
 use App\Http\Controllers\Api\FacilityCategoryController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -11,8 +12,15 @@ use App\Http\Controllers\JelajahWarengController;
 use App\Http\Controllers\Admin\StoryController as AdminStoryController;
 use App\Http\Controllers\Admin\StoryChapterController as AdminStoryChapterController;
 
-Route::view('/', 'home')
-    ->name('home');
+Route::get('/', function () {
+    $facilityCount = Facility::query()
+        ->where('is_published', true)
+        ->count();
+
+    return view('home', [
+        'facilityCount' => $facilityCount,
+    ]);
+})->name('home');
 
 Route::view('/peta', 'map.index')
     ->name('map.index');

@@ -57,6 +57,29 @@ document.addEventListener('DOMContentLoaded', function () {
             'map-route-duration'
         );
 
+    const routeRemainingDistanceElement =
+        document.getElementById(
+            'map-route-remaining-distance'
+        );
+
+    /*
+ * Elemen pilihan alternatif rute.
+ */
+    const routeAlternativesElement =
+        document.getElementById(
+            'map-route-alternatives'
+        );
+
+    const routeAlternativeListElement =
+        document.getElementById(
+            'map-route-alternative-list'
+        );
+
+    const routeAlternativeCountElement =
+        document.getElementById(
+            'map-route-alternative-count'
+        );
+
     /*
  * Elemen petunjuk langkah perjalanan.
  */
@@ -83,6 +106,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const routeClearButton =
         document.getElementById(
             'map-route-clear-button'
+        );
+
+    const routeNavigationStartButton =
+        document.getElementById(
+            'map-route-navigation-start-button'
+        );
+
+    const routeNavigationStopButton =
+        document.getElementById(
+            'map-route-navigation-stop-button'
         );
 
     const searchInput =
@@ -253,7 +286,39 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentUserLocation = null;
     let userLocationMarker = null;
     let userAccuracyCircle = null;
-    let activeRouteLayer = null;
+    let availableRoutes = [];
+    let routeLayers = [];
+    let activeRouteIndex = 0;
+    let navigationWatchId = null;
+    let isNavigationActive = false;
+    let lastRerouteLocation = null;
+    let lastRerouteTime = 0;
+    let routeRequestInProgress = false;
+
+    /*
+     * Rute diperbarui setelah pengguna bergerak
+     * minimal 30 meter dan jeda minimal 12 detik.
+     */
+    const rerouteDistanceThreshold = 30;
+    const rerouteTimeThreshold = 12000;
+
+    /*
+ * Pengguna dianggap tiba ketika berada
+ * dalam radius 25 meter dari tujuan.
+ */
+    const arrivalDistanceThreshold = 25;
+
+    /*
+     * Status mendekati tujuan ditampilkan
+     * ketika jarak tersisa kurang dari 100 meter.
+     */
+    const approachingDistanceThreshold = 100;
+
+    /*
+     * Penanda agar notifikasi tiba hanya
+     * dijalankan satu kali.
+     */
+    let hasArrivedAtDestination = false;
 
     /*
  * Membaca ID fasilitas dari URL.
@@ -2199,7 +2264,15 @@ document.addEventListener('DOMContentLoaded', function () {
             return false;
         }
 
+        stopLiveNavigation(false);
         clearCalculatedRoute();
+
+        hasArrivedAtDestination = false;
+
+        if (routeRemainingDistanceElement) {
+            routeRemainingDistanceElement.textContent =
+                '—';
+        }
 
         selectedRouteDestination = {
             id: Number(properties.id),
@@ -3041,10 +3114,18 @@ document.addEventListener('DOMContentLoaded', function () {
  * tanpa menghapus tujuan yang dipilih.
  */
     function clearCalculatedRoute() {
-        if (activeRouteLayer) {
-            map.removeLayer(activeRouteLayer);
-            activeRouteLayer = null;
-        }
+        /*
+ * Menghapus semua garis rute dari peta.
+ */
+        routeLayers.forEach(function (layer) {
+            if (map.hasLayer(layer)) {
+                map.removeLayer(layer);
+            }
+        });
+
+        routeLayers = [];
+        availableRoutes = [];
+        activeRouteIndex = 0;
 
         if (routeSummaryElement) {
             routeSummaryElement.hidden = true;
@@ -3073,6 +3154,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (routeDirectionsElement) {
             routeDirectionsElement.hidden = true;
+        }
+
+        if (routeAlternativeListElement) {
+            routeAlternativeListElement
+                .replaceChildren();
+        }
+
+        if (routeAlternativeCountElement) {
+            routeAlternativeCountElement
+                .textContent = '0 rute';
+        }
+
+        if (routeAlternativesElement) {
+            routeAlternativesElement.hidden = true;
         }
     }
 
@@ -3521,16 +3616,585 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     /*
- * Meminta rute berkendara dari OSRM.
+ * Menggabungkan langkah perjalanan dari
+ * seluruh leg pada satu rute.
  */
-    async function requestRoute(
-        origin,
-        destination
+    function getRouteSteps(route) {
+        if (!Array.isArray(route?.legs)) {
+            return [];
+        }
+
+        return route.legs.flatMap(
+            function (leg) {
+                return Array.isArray(leg.steps)
+                    ? leg.steps
+                    : [];
+            }
+        );
+    }
+
+    /*
+ * Menentukan tampilan garis berdasarkan
+ * status aktif atau alternatif.
+ */
+    function getRouteLineStyle(isActive) {
+        if (isActive) {
+            return {
+                color: '#2673c9',
+                weight: 7,
+                opacity: 0.95,
+                lineCap: 'round',
+                lineJoin: 'round'
+            };
+        }
+
+        return {
+            color: '#7d8a82',
+            weight: 4,
+            opacity: 0.5,
+            dashArray: '8 8',
+            lineCap: 'round',
+            lineJoin: 'round'
+        };
+    }
+
+    /*
+ * Mengaktifkan salah satu rute berdasarkan
+ * indeks dari respons OSRM.
+ */
+    function selectRoute(
+        routeIndex,
+        shouldFitBounds = true
     ) {
-        if (!origin || !destination) {
+        const selectedRoute =
+            availableRoutes[routeIndex];
+
+        const selectedLayer =
+            routeLayers[routeIndex];
+
+        if (!selectedRoute || !selectedLayer) {
+            return false;
+        }
+
+        activeRouteIndex = routeIndex;
+
+        /*
+         * Memperbarui tampilan semua garis.
+         */
+        routeLayers.forEach(
+            function (layer, index) {
+                layer.setStyle(
+                    getRouteLineStyle(
+                        index === routeIndex
+                    )
+                );
+            }
+        );
+
+        /*
+         * Garis aktif diletakkan paling depan.
+         */
+        if (
+            typeof selectedLayer
+                .bringToFront === 'function'
+        ) {
+            selectedLayer.bringToFront();
+        }
+
+        /*
+         * Memperbarui ringkasan perjalanan.
+         */
+        if (routeDistanceElement) {
+            routeDistanceElement.textContent =
+                formatRouteDistance(
+                    Number(selectedRoute.distance)
+                );
+        }
+
+        if (routeDurationElement) {
+            routeDurationElement.textContent =
+                formatRouteDuration(
+                    Number(selectedRoute.duration)
+                );
+        }
+
+        if (routeSummaryElement) {
+            routeSummaryElement.hidden = false;
+        }
+
+        /*
+         * Petunjuk belokan mengikuti rute aktif.
+         */
+        renderRouteDirections(
+            getRouteSteps(selectedRoute)
+        );
+
+        /*
+         * Memperbarui status tombol alternatif.
+         */
+        if (routeAlternativeListElement) {
+            routeAlternativeListElement
+                .querySelectorAll(
+                    '[data-route-index]'
+                )
+                .forEach(function (button) {
+                    const buttonIndex =
+                        Number(
+                            button.dataset.routeIndex
+                        );
+
+                    const isActive =
+                        buttonIndex === routeIndex;
+
+                    button.classList.toggle(
+                        'is-active',
+                        isActive
+                    );
+
+                    button.setAttribute(
+                        'aria-pressed',
+                        isActive
+                            ? 'true'
+                            : 'false'
+                    );
+                });
+        }
+
+        if (
+            shouldFitBounds &&
+            selectedLayer.getBounds
+        ) {
+            const selectedBounds =
+                selectedLayer.getBounds();
+
+            if (selectedBounds.isValid()) {
+                map.fitBounds(
+                    selectedBounds,
+                    {
+                        padding: [60, 60],
+                        maxZoom: 18
+                    }
+                );
+            }
+        }
+
+        if (
+            userLocationMarker &&
+            typeof userLocationMarker
+                .bringToFront === 'function'
+        ) {
+            userLocationMarker.bringToFront();
+        }
+
+        if (routeStatusBadgeElement) {
+            routeStatusBadgeElement.textContent =
+                routeIndex === 0
+                    ? 'Rute utama'
+                    : `Alternatif ${routeIndex}`;
+
+            routeStatusBadgeElement
+                .classList.remove(
+                    'is-loading',
+                    'is-error'
+                );
+
+            routeStatusBadgeElement
+                .classList.add(
+                    'is-active'
+                );
+        }
+
+        if (routeMessageElement) {
+            const routeLabel =
+                routeIndex === 0
+                    ? 'Rute utama'
+                    : `Rute alternatif ${routeIndex}`;
+
+            routeMessageElement.textContent =
+                `${routeLabel} menuju ${selectedRouteDestination?.name ||
+                'tujuan'
+                } sedang ditampilkan.`;
+        }
+
+        return true;
+    }
+
+    /*
+ * Membuat tombol pilihan rute berdasarkan
+ * hasil yang dikembalikan OSRM.
+ */
+    function renderRouteAlternatives(routes) {
+        if (
+            !routeAlternativesElement ||
+            !routeAlternativeListElement
+        ) {
             return;
         }
 
+        routeAlternativeListElement
+            .replaceChildren();
+
+        if (
+            !Array.isArray(routes) ||
+            routes.length <= 1
+        ) {
+            routeAlternativesElement.hidden = true;
+
+            if (routeAlternativeCountElement) {
+                routeAlternativeCountElement
+                    .textContent = routes?.length
+                        ? '1 rute'
+                        : '0 rute';
+            }
+
+            return;
+        }
+
+        routes.forEach(function (route, index) {
+            const button =
+                document.createElement('button');
+
+            button.type = 'button';
+
+            button.className =
+                'map-route-alternative-button';
+
+            button.dataset.routeIndex =
+                String(index);
+
+            button.setAttribute(
+                'aria-pressed',
+                index === 0
+                    ? 'true'
+                    : 'false'
+            );
+
+            if (index === 0) {
+                button.classList.add(
+                    'is-active'
+                );
+            }
+
+            const title =
+                document.createElement('strong');
+
+            title.textContent =
+                index === 0
+                    ? 'Rute Utama'
+                    : `Alternatif ${index}`;
+
+            const summary =
+                document.createElement('span');
+
+            summary.textContent =
+                `${formatRouteDistance(
+                    Number(route.distance)
+                )
+                } · ${formatRouteDuration(
+                    Number(route.duration)
+                )
+                }`;
+
+            button.append(
+                title,
+                summary
+            );
+
+            button.addEventListener(
+                'click',
+                function () {
+                    selectRoute(index);
+                }
+            );
+
+            routeAlternativeListElement
+                .appendChild(button);
+        });
+
+        if (routeAlternativeCountElement) {
+            routeAlternativeCountElement
+                .textContent =
+                `${routes.length} rute`;
+        }
+
+        routeAlternativesElement.hidden = false;
+    }
+
+    /*
+ * Menggambar semua rute. Alternatif digambar
+ * lebih dahulu agar rute utama berada di atas.
+ */
+    function drawRouteLayers(routes) {
+        routeLayers = new Array(
+            routes.length
+        );
+
+        for (
+            let index = routes.length - 1;
+            index >= 0;
+            index -= 1
+        ) {
+            const route = routes[index];
+
+            if (!route.geometry) {
+                continue;
+            }
+
+            const layer = L.geoJSON(
+                route.geometry,
+                {
+                    style: getRouteLineStyle(
+                        index === 0
+                    )
+                }
+            ).addTo(map);
+
+            /*
+             * Garis alternatif juga bisa dipilih
+             * langsung dari peta.
+             */
+            layer.on('click', function () {
+                selectRoute(index, false);
+            });
+
+            routeLayers[index] = layer;
+        }
+    }
+
+    /*
+ * Menghitung jarak lurus antara dua posisi
+ * menggunakan rumus Haversine.
+ */
+    function calculateCoordinateDistance(
+        firstLocation,
+        secondLocation
+    ) {
+        if (!firstLocation || !secondLocation) {
+            return Infinity;
+        }
+
+        const earthRadius = 6371000;
+
+        const firstLatitude =
+            firstLocation.latitude *
+            Math.PI / 180;
+
+        const secondLatitude =
+            secondLocation.latitude *
+            Math.PI / 180;
+
+        const latitudeDifference =
+            (
+                secondLocation.latitude -
+                firstLocation.latitude
+            ) *
+            Math.PI / 180;
+
+        const longitudeDifference =
+            (
+                secondLocation.longitude -
+                firstLocation.longitude
+            ) *
+            Math.PI / 180;
+
+        const haversineValue =
+            Math.sin(
+                latitudeDifference / 2
+            ) ** 2 +
+            Math.cos(firstLatitude) *
+            Math.cos(secondLatitude) *
+            Math.sin(
+                longitudeDifference / 2
+            ) ** 2;
+
+        const angularDistance =
+            2 *
+            Math.atan2(
+                Math.sqrt(haversineValue),
+                Math.sqrt(
+                    1 - haversineValue
+                )
+            );
+
+        return earthRadius * angularDistance;
+    }
+
+    /*
+ * Menghitung jarak lurus posisi pengguna
+ * menuju fasilitas tujuan.
+ */
+    function updateRemainingDistance(
+        userLocation
+    ) {
+        if (
+            !userLocation ||
+            !selectedRouteDestination
+        ) {
+            return Infinity;
+        }
+
+        const remainingDistance =
+            calculateCoordinateDistance(
+                userLocation,
+                selectedRouteDestination
+            );
+
+        if (routeRemainingDistanceElement) {
+            routeRemainingDistanceElement.textContent =
+                formatRouteDistance(
+                    remainingDistance
+                );
+        }
+
+        return remainingDistance;
+    }
+
+    /*
+ * Menangani kondisi ketika pengguna telah
+ * berada di sekitar fasilitas tujuan.
+ */
+    function handleDestinationArrival() {
+        if (hasArrivedAtDestination) {
+            return;
+        }
+
+        hasArrivedAtDestination = true;
+
+        /*
+         * Hentikan pelacakan GPS, tetapi tetap
+         * pertahankan garis rute terakhir.
+         */
+        stopLiveNavigation(false);
+
+        if (routeStatusBadgeElement) {
+            routeStatusBadgeElement.textContent =
+                'Telah sampai';
+
+            routeStatusBadgeElement.classList.remove(
+                'is-loading',
+                'is-error'
+            );
+
+            routeStatusBadgeElement.classList.add(
+                'is-active'
+            );
+        }
+
+        if (routeMessageElement) {
+            routeMessageElement.textContent =
+                `Anda telah sampai di ${selectedRouteDestination?.name ||
+                'lokasi tujuan'
+                }.`;
+        }
+
+        if (routeRemainingDistanceElement) {
+            routeRemainingDistanceElement.textContent =
+                'Tiba';
+        }
+
+        if (routeNavigationStartButton) {
+            routeNavigationStartButton.hidden = true;
+        }
+
+        if (routeNavigationStopButton) {
+            routeNavigationStopButton.hidden = true;
+        }
+
+        /*
+         * Buka popup fasilitas tujuan.
+         */
+        const destinationLayer =
+            renderedLayerById.get(
+                Number(
+                    selectedRouteDestination?.id
+                )
+            );
+
+        if (destinationLayer) {
+            destinationLayer.openPopup();
+
+            if (
+                typeof destinationLayer
+                    .bringToFront === 'function'
+            ) {
+                destinationLayer.bringToFront();
+            }
+        }
+    }
+
+    /*
+ * Memperbarui status navigasi berdasarkan
+ * jarak pengguna terhadap tujuan.
+ */
+    function checkNavigationProgress(
+        userLocation
+    ) {
+        const remainingDistance =
+            updateRemainingDistance(
+                userLocation
+            );
+
+        if (!Number.isFinite(remainingDistance)) {
+            return;
+        }
+
+        if (
+            remainingDistance <=
+            arrivalDistanceThreshold
+        ) {
+            handleDestinationArrival();
+            return;
+        }
+
+        if (
+            isNavigationActive &&
+            remainingDistance <=
+            approachingDistanceThreshold
+        ) {
+            if (routeStatusBadgeElement) {
+                routeStatusBadgeElement.textContent =
+                    'Mendekati tujuan';
+
+                routeStatusBadgeElement.classList.remove(
+                    'is-loading',
+                    'is-error'
+                );
+
+                routeStatusBadgeElement.classList.add(
+                    'is-active'
+                );
+            }
+
+            if (routeMessageElement) {
+                routeMessageElement.textContent =
+                    `Anda hampir sampai di ${selectedRouteDestination?.name ||
+                    'tujuan'
+                    }.`;
+            }
+        }
+    }
+
+    async function requestRoute(
+        origin,
+        destination,
+        options = {}
+    ) {
+        if (!origin || !destination) {
+            return false;
+        }
+
+        /*
+         * Hindari dua permintaan routing berjalan
+         * pada waktu yang sama.
+         */
+        if (routeRequestInProgress) {
+            return false;
+        }
+
+        routeRequestInProgress = true;
+
+        const shouldFitBounds =
+            options.shouldFitBounds !== false;
         clearCalculatedRoute();
 
         if (routeStatusBadgeElement) {
@@ -3572,7 +4236,8 @@ document.addEventListener('DOMContentLoaded', function () {
             `${originCoordinate};${destinationCoordinate}` +
             '?overview=full' +
             '&geometries=geojson' +
-            '&steps=true';
+            '&steps=true' +
+            '&alternatives=3';
 
         try {
             const response = await fetch(
@@ -3603,116 +4268,61 @@ document.addEventListener('DOMContentLoaded', function () {
                 );
             }
 
-            const selectedRoute =
-                routeData.routes[0];
+            /*
+ * Hanya gunakan rute yang memiliki
+ * geometri untuk digambar.
+ */
+            availableRoutes =
+                routeData.routes.filter(
+                    function (route) {
+                        return Boolean(route.geometry);
+                    }
+                );
 
-            if (!selectedRoute.geometry) {
+            if (availableRoutes.length === 0) {
                 throw new Error(
                     'Geometri rute tidak tersedia.'
                 );
             }
 
-            const routeSteps = Array.isArray(
-                selectedRoute.legs
-            )
-                ? selectedRoute.legs.flatMap(
-                    function (leg) {
-                        return Array.isArray(leg.steps)
-                            ? leg.steps
-                            : [];
-                    }
-                )
-                : [];
+            /*
+             * Menggambar semua alternatif.
+             */
+            drawRouteLayers(
+                availableRoutes
+            );
 
             /*
-             * Menggambar geometri rute pada Leaflet.
+             * Membuat tombol pilihan rute.
              */
-            activeRouteLayer = L.geoJSON(
-                selectedRoute.geometry,
-                {
-                    style: {
-                        color: '#2673c9',
-                        weight: 6,
-                        opacity: 0.9,
-                        lineCap: 'round',
-                        lineJoin: 'round'
-                    }
-                }
-            ).addTo(map);
+            renderRouteAlternatives(
+                availableRoutes
+            );
 
             /*
-             * Menyesuaikan tampilan agar seluruh
-             * garis perjalanan terlihat.
+             * Rute pertama merupakan rekomendasi utama.
              */
-            const routeBounds =
-                activeRouteLayer.getBounds();
-
-            if (routeBounds.isValid()) {
-                map.fitBounds(
-                    routeBounds,
-                    {
-                        padding: [60, 60],
-                        maxZoom: 18
-                    }
-                );
-            }
-
-            /*
-             * Pastikan marker posisi pengguna tetap
-             * berada di atas garis rute.
-             */
-            if (
-                userLocationMarker &&
-                typeof userLocationMarker
-                    .bringToFront === 'function'
-            ) {
-                userLocationMarker.bringToFront();
-            }
-
-            if (routeDistanceElement) {
-                routeDistanceElement.textContent =
-                    formatRouteDistance(
-                        selectedRoute.distance
-                    );
-            }
-
-            if (routeDurationElement) {
-                routeDurationElement.textContent =
-                    formatRouteDuration(
-                        selectedRoute.duration
-                    );
-            }
-
-            if (routeSummaryElement) {
-                routeSummaryElement.hidden = false;
-            }
-
-            renderRouteDirections(
-                routeSteps
+            selectRoute(
+                0,
+                shouldFitBounds
             );
 
             if (routeClearButton) {
                 routeClearButton.hidden = false;
             }
 
-            if (routeStatusBadgeElement) {
-                routeStatusBadgeElement.textContent =
-                    'Rute tersedia';
-
-                routeStatusBadgeElement.classList.remove(
-                    'is-loading',
-                    'is-error'
-                );
-
-                routeStatusBadgeElement.classList.add(
-                    'is-active'
-                );
+            if (
+                routeNavigationStartButton &&
+                !isNavigationActive
+            ) {
+                routeNavigationStartButton.hidden = false;
             }
 
-            if (routeMessageElement) {
-                routeMessageElement.textContent =
-                    `Rute berkendara menuju ${destination.name} berhasil ditemukan.`;
+            if (routeNavigationStopButton) {
+                routeNavigationStopButton.hidden =
+                    !isNavigationActive;
             }
+
         } catch (error) {
             clearCalculatedRoute();
 
@@ -3740,12 +4350,222 @@ document.addEventListener('DOMContentLoaded', function () {
                 error
             );
         } finally {
+            routeRequestInProgress = false;
+
             if (routeStartButton) {
                 routeStartButton.disabled =
                     !selectedRouteDestination;
             }
         }
     }
+
+    /*
+ * Menghentikan pelacakan posisi pengguna.
+ */
+    function stopLiveNavigation(
+        updateInterface = true
+    ) {
+        if (navigationWatchId !== null) {
+            navigator.geolocation.clearWatch(
+                navigationWatchId
+            );
+
+            navigationWatchId = null;
+        }
+
+        isNavigationActive = false;
+        lastRerouteLocation = null;
+        lastRerouteTime = 0;
+
+        if (routeNavigationStartButton) {
+            routeNavigationStartButton.hidden =
+                availableRoutes.length === 0;
+        }
+
+        if (routeNavigationStopButton) {
+            routeNavigationStopButton.hidden = true;
+        }
+
+        if (!updateInterface) {
+            return;
+        }
+
+        if (routeStatusBadgeElement) {
+            routeStatusBadgeElement.textContent =
+                availableRoutes.length > 0
+                    ? 'Navigasi dihentikan'
+                    : 'Tujuan dipilih';
+
+            routeStatusBadgeElement.classList.remove(
+                'is-loading',
+                'is-error'
+            );
+
+            routeStatusBadgeElement.classList.add(
+                'is-active'
+            );
+        }
+
+        if (routeMessageElement) {
+            routeMessageElement.textContent =
+                'Pelacakan posisi dihentikan. Rute terakhir masih ditampilkan.';
+        }
+    }
+
+    /*
+ * Memulai pelacakan posisi secara langsung.
+ */
+    function startLiveNavigation() {
+        if (
+            !selectedRouteDestination ||
+            !navigator.geolocation
+        ) {
+            return;
+        }
+
+        if (navigationWatchId !== null) {
+            return;
+        }
+
+        isNavigationActive = true;
+
+        lastRerouteLocation =
+            currentUserLocation
+                ? {
+                    latitude:
+                        currentUserLocation.latitude,
+                    longitude:
+                        currentUserLocation.longitude
+                }
+                : null;
+
+        lastRerouteTime = Date.now();
+
+        if (routeNavigationStartButton) {
+            routeNavigationStartButton.hidden = true;
+        }
+
+        if (routeNavigationStopButton) {
+            routeNavigationStopButton.hidden = false;
+        }
+
+        if (routeStatusBadgeElement) {
+            routeStatusBadgeElement.textContent =
+                'Navigasi aktif';
+
+            routeStatusBadgeElement.classList.remove(
+                'is-loading',
+                'is-error'
+            );
+
+            routeStatusBadgeElement.classList.add(
+                'is-active'
+            );
+        }
+
+        if (routeMessageElement) {
+            routeMessageElement.textContent =
+                'Posisi Anda sedang dipantau. Rute akan diperbarui ketika Anda bergerak.';
+        }
+
+        navigationWatchId =
+            navigator.geolocation.watchPosition(
+                function (position) {
+                    const nextLocation = {
+                        latitude:
+                            position.coords.latitude,
+                        longitude:
+                            position.coords.longitude,
+                        accuracy:
+                            position.coords.accuracy
+                    };
+
+                    currentUserLocation =
+                        nextLocation;
+
+                    showUserLocation(
+                        nextLocation.latitude,
+                        nextLocation.longitude,
+                        nextLocation.accuracy
+                    );
+
+                    checkNavigationProgress(
+                        nextLocation
+                    );
+
+                    if (hasArrivedAtDestination) {
+                        return;
+                    }
+
+                    const movedDistance =
+                        calculateCoordinateDistance(
+                            lastRerouteLocation,
+                            nextLocation
+                        );
+
+                    const elapsedTime =
+                        Date.now() -
+                        lastRerouteTime;
+
+                    const shouldReroute =
+                        !lastRerouteLocation ||
+                        (
+                            movedDistance >=
+                            rerouteDistanceThreshold &&
+                            elapsedTime >=
+                            rerouteTimeThreshold
+                        );
+
+                    if (!shouldReroute) {
+                        return;
+                    }
+
+                    lastRerouteLocation = {
+                        latitude:
+                            nextLocation.latitude,
+                        longitude:
+                            nextLocation.longitude
+                    };
+
+                    lastRerouteTime = Date.now();
+
+                    requestRoute(
+                        nextLocation,
+                        selectedRouteDestination,
+                        {
+                            /*
+                             * Jangan menggeser seluruh
+                             * peta setiap pembaruan GPS.
+                             */
+                            shouldFitBounds: false
+                        }
+                    );
+                },
+                function (error) {
+                    stopLiveNavigation(false);
+                    handleLocationError(error);
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 15000,
+                    maximumAge: 3000
+                }
+            );
+    }
+
+    routeNavigationStartButton
+        ?.addEventListener(
+            'click',
+            startLiveNavigation
+        );
+
+    routeNavigationStopButton
+        ?.addEventListener(
+            'click',
+            function () {
+                stopLiveNavigation(true);
+            }
+        );
 
     /*
  * Tahap sementara sebelum GPS diaktifkan.
@@ -3836,6 +4656,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         accuracy
                     );
 
+                    hasArrivedAtDestination = false;
+
+                    checkNavigationProgress(
+                        currentUserLocation
+                    );
+
                     /*
                      * Tampilkan posisi pengguna dan
                      * tujuan dalam satu cakupan peta.
@@ -3913,7 +4739,14 @@ document.addEventListener('DOMContentLoaded', function () {
     routeClearButton?.addEventListener(
         'click',
         function () {
+            stopLiveNavigation(false);
             clearCalculatedRoute();
+            hasArrivedAtDestination = false;
+
+            if (routeRemainingDistanceElement) {
+                routeRemainingDistanceElement.textContent =
+                    '—';
+            }
             currentUserLocation = null;
 
             if (userLocationMarker) {
@@ -3974,6 +4807,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     selectedRouteDestination
                         ? 'Tujuan masih dipilih. Tekan “Rute ke Lokasi” untuk mengambil kembali posisi GPS.'
                         : 'Pilih salah satu fasilitas pada peta untuk melihat pilihan rute dari posisi Anda.';
+            }
+
+            if (routeNavigationStartButton) {
+                routeNavigationStartButton.hidden = true;
+            }
+
+            if (routeNavigationStopButton) {
+                routeNavigationStopButton.hidden = true;
             }
         }
     );

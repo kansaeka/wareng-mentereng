@@ -293,6 +293,26 @@
                                 </strong>
                             </div>
 
+                            <div id="map-route-alternatives" class="map-route-alternatives" hidden>
+                                <div class="map-route-alternatives-header">
+                                    <div>
+                                        <span>
+                                            OPSI RUTE
+                                        </span>
+
+                                        <strong>
+                                            Pilih Jalur Perjalanan
+                                        </strong>
+                                    </div>
+
+                                    <small id="map-route-alternative-count">
+                                        0 rute
+                                    </small>
+                                </div>
+
+                                <div id="map-route-alternative-list" class="map-route-alternative-list"></div>
+                            </div>
+
                             <div id="map-route-directions" class="map-route-directions" hidden>
                                 <div class="map-route-directions-header">
                                     <div>
@@ -319,6 +339,14 @@
                                     —
                                 </strong>
                             </div>
+
+                            <div class="map-route-summary-item">
+                                <span>Jarak ke tujuan</span>
+
+                                <strong id="map-route-remaining-distance">
+                                    —
+                                </strong>
+                            </div>
                         </div>
 
                         <div class="map-route-actions">
@@ -329,6 +357,16 @@
                             <button id="map-route-clear-button" type="button" class="button map-route-clear-button"
                                 hidden>
                                 Hapus Rute
+                            </button>
+
+                            <button id="map-route-navigation-start-button" type="button"
+                                class="button map-route-navigation-start-button" hidden>
+                                Mulai Navigasi
+                            </button>
+
+                            <button id="map-route-navigation-stop-button" type="button"
+                                class="button map-route-navigation-stop-button" hidden>
+                                Hentikan Navigasi
                             </button>
                         </div>
 
