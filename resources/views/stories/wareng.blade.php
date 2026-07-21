@@ -28,9 +28,89 @@
                 </p>
             @endif
 
-            <a href="#perjalanan-wareng" class="button button-primary">
-                Mulai Perjalanan
+            <a href="#dokumenter-wareng" class="button button-primary">
+                Tonton Dokumenter
             </a>
+        </div>
+    </section>
+
+    {{-- ==================================================
+     VIDEO DOKUMENTER DUSUN WARENG
+================================================== --}}
+    <section id="dokumenter-wareng" class="story-documentary-section">
+        <div class="story-documentary-pattern" aria-hidden="true"></div>
+
+        <div class="container story-documentary-container">
+            <header class="story-documentary-heading">
+                <div class="story-documentary-heading-copy">
+                    <p class="section-label">
+                        DOKUMENTASI DUSUN
+                    </p>
+
+                    <h2>
+                        Wareng dalam
+                        <span>Bingkai Kehidupan</span>
+                    </h2>
+
+                    <p>
+                        Saksikan lebih dekat lingkungan, aktivitas,
+                        potensi, dan kehidupan masyarakat Dusun Wareng
+                        melalui dokumenter singkat berikut.
+                    </p>
+                </div>
+
+                <div class="story-documentary-status">
+                    <span class="story-documentary-status-dot" aria-hidden="true"></span>
+
+                    <div>
+                        <small>DOKUMENTER WILAYAH</small>
+
+                        <strong>
+                            Dusun Wareng
+                        </strong>
+                    </div>
+                </div>
+            </header>
+
+            <div class="story-documentary-video-shell">
+                <div class="story-documentary-video-frame">
+                    <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID?rel=0"
+                        title="Video dokumenter Dusun Wareng" loading="lazy"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allow="
+                        accelerometer;
+                        autoplay;
+                        clipboard-write;
+                        encrypted-media;
+                        gyroscope;
+                        picture-in-picture;
+                        web-share
+                    "
+                        allowfullscreen></iframe>
+                </div>
+
+                <div class="story-documentary-video-footer">
+                    <div class="story-documentary-information">
+                        <span>
+                            DOKUMENTER
+                        </span>
+
+                        <strong>
+                            Menelusuri Kehidupan Dusun Wareng
+                        </strong>
+
+                        <small>
+                            Produksi Tim PKL Dusun Wareng · 2026
+                        </small>
+                    </div>
+
+                    <a href="#perjalanan-wareng" class="story-documentary-next">
+                        Mulai Jelajah Peta
+
+                        <span aria-hidden="true">↓</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
