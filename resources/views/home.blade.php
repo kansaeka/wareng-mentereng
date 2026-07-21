@@ -250,10 +250,6 @@
                         ↓
                     </span>
                 </a>
-
-                <a href="{{ route('home') }}#sambutan-kepala-dusun">
-                    Sambutan Kepala Dusun
-                </a>
             </div>
         </div>
     </section>
