@@ -397,21 +397,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (
-            moveMap &&
-            chapter.hasLocation
-        ) {
-            map.flyTo(
-                [
-                    chapter.latitude,
-                    chapter.longitude,
-                ],
-                chapter.zoom,
-                {
-                    animate: true,
-                    duration: 1.1,
-                }
-            );
+    moveMap &&
+    chapter.hasLocation
+) {
+    /*
+     * Menghentikan animasi sebelumnya agar peta
+     * langsung mengikuti bab terbaru.
+     */
+    map.stop();
+
+    map.flyTo(
+        [
+            chapter.latitude,
+            chapter.longitude,
+        ],
+        chapter.zoom,
+        {
+            animate: true,
+            duration: 0.8,
+            easeLinearity: 0.25,
         }
+    );
+}
     }
 
     /*

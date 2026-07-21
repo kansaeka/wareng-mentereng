@@ -250,6 +250,92 @@
                         ↓
                     </span>
                 </a>
+
+                <a href="{{ route('home') }}#sambutan-kepala-dusun">
+                    Sambutan Kepala Dusun
+                </a>
+            </div>
+        </div>
+    </section>
+
+    {{-- SAMBUTAN KEPALA DUSUN --}}
+    <section id="sambutan-kepala-dusun" class="home-greeting-section">
+        <div class="home-greeting-decoration" aria-hidden="true"></div>
+
+        <div class="container home-greeting-container">
+            <div class="home-greeting-media">
+                <div class="home-greeting-image-frame">
+                    <img src="{{ asset('images/wareng/kepala-dusun-wareng.jpeg') }}" alt="Kepala Dusun Wareng"
+                        class="home-greeting-image" loading="lazy">
+
+                    <div class="home-greeting-image-overlay"></div>
+
+                    <div class="home-greeting-image-caption">
+                        <span>Kepala Dusun</span>
+
+                        <strong>Dusun Wareng</strong>
+                    </div>
+                </div>
+
+                <div class="home-greeting-media-badge" aria-hidden="true">
+                    <div class="home-greeting-badge-logo">
+                        <img src="{{ asset('images/wareng/logo-wareng-fix.png') }}" alt="">
+                    </div>
+
+                    <div class="home-greeting-badge-text">
+                        <small>DUSUN</small>
+                        <strong>WARENG</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="home-greeting-content">
+                <p class="home-greeting-eyebrow">
+                    SALAM HANGAT DARI DUSUN WARENG
+                </p>
+
+                <h2>
+                    Sambutan
+                    <span>Kepala Dusun</span>
+                </h2>
+
+                <div class="home-greeting-quote-mark" aria-hidden="true">
+                    “
+                </div>
+
+                <blockquote>
+                    <p>
+                        Selamat Datang di Dusun Wareng
+                        Rasakan hangatnya kebersamaan dan indahnya keberkahan dalam setiap perjumpaan. Mari rasakan
+                        kehangatan, kebersamaan, dan keramahan masyarakat kami. Kehadiran platform ini diharapkan
+                        dapat menjadi sarana untuk mengenal wilayah,
+                        potensi, fasilitas, serta kehidupan masyarakat
+                        Dusun Wareng secara lebih dekat dan informatif.
+                    </p>
+
+                    <p>
+                        Kami berharap informasi yang disajikan dapat
+                        memberikan manfaat bagi masyarakat, pemerintah,
+                        akademisi, maupun pihak lain yang ingin mengenal
+                        dan mendukung perkembangan Dusun Wareng.
+                    </p>
+                </blockquote>
+
+                <div class="home-greeting-signature">
+                    <div>
+                        <span>Salam hangat,</span>
+
+                        <strong>
+                            Denny Zusman
+                        </strong>
+
+                        <small>
+                            Kepala Dusun Wareng
+                        </small>
+                    </div>
+
+                    <span class="home-greeting-signature-line" aria-hidden="true"></span>
+                </div>
             </div>
         </div>
     </section>
@@ -378,8 +464,8 @@
                     </div>
 
                     <div class="home-statistic-value">
-                        <strong id="stat-household-value" class="home-stat-count" data-count="84" data-decimals="0">
-                            84
+                        <strong id="stat-household-value" class="home-stat-count" data-count="93" data-decimals="0">
+                            93
                         </strong>
 
                         <span>
