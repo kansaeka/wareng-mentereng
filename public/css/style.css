@@ -8155,115 +8155,6 @@ textarea:focus-visible {
    FINAL OVERRIDE — GLASS NAVBAR DI ATAS HERO
 ================================================== */
 
-/* Navbar halaman Beranda menumpuk di atas video hero */
-.home-page .site-header {
-    position: absolute !important;
-    z-index: 5000 !important;
-    top: 0 !important;
-    right: 0 !important;
-    left: 0 !important;
-    padding: 0.65rem 0 !important;
-    border: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-}
-
-/* Kapsul kaca */
-.home-page .site-header .navbar {
-    position: relative !important;
-    min-height: 48px !important;
-    padding: 0.3rem 0.45rem 0.3rem 0.65rem !important;
-    border: 1px solid rgba(255, 255, 255, 0.22) !important;
-    border-radius: 18px !important;
-
-    background:
-        linear-gradient(135deg,
-            rgba(12, 38, 25, 0.32),
-            rgba(12, 38, 25, 0.16)) !important;
-
-    box-shadow:
-        0 12px 40px rgba(4, 20, 12, 0.18),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-
-    backdrop-filter:
-        blur(18px) saturate(145%) !important;
-
-    -webkit-backdrop-filter:
-        blur(18px) saturate(145%) !important;
-}
-
-/* Hilangkan lapisan putih mengilap lama */
-.home-page .site-header .navbar::before {
-    background:
-        linear-gradient(110deg,
-            rgba(255, 255, 255, 0.11),
-            transparent 40%,
-            rgba(255, 255, 255, 0.03)) !important;
-}
-
-/* Logo dibuat lebih ringkas */
-.home-page .site-header .brand-logo {
-    width: 37px !important;
-    height: 37px !important;
-    flex-basis: 37px !important;
-    border-radius: 11px !important;
-    background:
-        linear-gradient(145deg,
-            rgba(44, 124, 82, 0.92),
-            rgba(10, 55, 34, 0.96)) !important;
-}
-
-/* Identitas berwarna terang di atas video */
-.home-page .site-header .brand-text strong {
-    color: #ffffff !important;
-    font-size: 0.88rem !important;
-}
-
-.home-page .site-header .brand-text small {
-    color: rgba(255, 255, 255, 0.66) !important;
-    font-size: 0.59rem !important;
-}
-
-/* Area navigasi tidak lagi putih */
-.home-page .site-navigation {
-    padding: 0.16rem !important;
-    border-color: rgba(255, 255, 255, 0.12) !important;
-    background: rgba(255, 255, 255, 0.06) !important;
-    box-shadow: none !important;
-}
-
-.home-page .site-navigation-link {
-    min-height: 34px !important;
-    padding: 0.42rem 0.8rem !important;
-    color: rgba(255, 255, 255, 0.82) !important;
-    font-size: 0.72rem !important;
-}
-
-.home-page .site-navigation-link:hover {
-    background: rgba(255, 255, 255, 0.11) !important;
-    color: #ffffff !important;
-}
-
-/* Menu aktif dengan glass putih lembut */
-.home-page .site-navigation-link.is-active {
-    background: rgba(255, 255, 255, 0.16) !important;
-    color: #ffffff !important;
-    box-shadow:
-        inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-        0 7px 20px rgba(0, 0, 0, 0.12) !important;
-}
-
-/* Tombol akun */
-.home-page .site-navigation-icon-button,
-.home-page .mobile-navigation-toggle {
-    width: 37px !important;
-    height: 37px !important;
-    border-color: rgba(255, 255, 255, 0.15) !important;
-    background: rgba(255, 255, 255, 0.08) !important;
-    color: #ffffff !important;
-    box-shadow: none !important;
-}
-
 /* Beri ruang agar teks hero tidak tertutup navbar */
 .home-page .hero-content {
     padding-top: clamp(6.5rem, 10vw, 8rem) !important;
@@ -8279,28 +8170,6 @@ textarea:focus-visible {
     box-shadow: 0 8px 28px rgba(18, 52, 34, 0.06) !important;
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
-}
-
-@media (max-width: 560px) {
-    .home-page .site-header {
-        padding: 0.45rem 0 !important;
-    }
-
-    .home-page .site-header .navbar {
-        min-height: 44px !important;
-        padding: 0.25rem 0.35rem 0.25rem 0.5rem !important;
-        border-radius: 15px !important;
-    }
-
-    .home-page .site-header .brand-logo {
-        width: 35px !important;
-        height: 35px !important;
-        flex-basis: 35px !important;
-    }
-
-    .home-page .hero-content {
-        padding-top: 6rem !important;
-    }
 }
 
 /* ==================================================
@@ -8409,4 +8278,2284 @@ textarea:focus-visible {
     object-position: center;
     transform: translate(0px, -2px) scale(1.18);
     transform-origin: center;
+}
+
+/* ==================================================
+   31K — VIDEO HERO JELAJAH WARENG
+================================================== */
+
+/* ==================================================
+   FIX VIDEO HERO JELAJAH WARENG
+================================================== */
+
+.story-video-hero {
+    position: relative !important;
+    isolation: isolate;
+    min-height: clamp(610px, 78vh, 790px);
+    overflow: hidden !important;
+    background: #0b2d1e;
+}
+
+/* Video tidak lagi menggunakan z-index negatif */
+.story-video-hero .story-hero-background-video {
+    position: absolute !important;
+    z-index: 0 !important;
+    inset: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: none;
+}
+
+/* Lapisan gelap di atas video */
+.story-video-hero .story-hero-video-overlay {
+    position: absolute !important;
+    z-index: 1 !important;
+    inset: 0 !important;
+    display: block !important;
+
+    background:
+        linear-gradient(90deg,
+            rgba(5, 27, 17, 0.52) 0%,
+            rgba(8, 39, 25, 0.32) 48%,
+            rgba(9, 42, 27, 0.08) 100%),
+        linear-gradient(180deg,
+            rgba(5, 27, 17, 0.05) 0%,
+            rgba(5, 27, 17, 0.08) 58%,
+            rgba(5, 27, 17, 0.35) 100%) !important;
+
+    pointer-events: none;
+}
+
+/* Seluruh konten hero berada di atas video */
+.story-video-hero .container {
+    position: relative !important;
+    z-index: 3 !important;
+}
+
+/* Teks hero */
+.story-video-hero h1 {
+    color: #ffffff !important;
+    text-shadow: 0 8px 32px rgba(0, 0, 0, 0.26);
+}
+
+.story-video-hero p {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Pola tipis agar identik dengan visual website */
+.story-hero-video-pattern {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    opacity: 0.12;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px,
+            transparent 1px),
+        linear-gradient(90deg,
+            rgba(255, 255, 255, 0.08) 1px,
+            transparent 1px);
+    background-size: 54px 54px;
+    pointer-events: none;
+}
+
+/* Pastikan seluruh konten berada di atas video */
+.story-video-hero>.container {
+    position: relative;
+    z-index: 1;
+}
+
+.story-video-hero h1 {
+    color: #ffffff;
+    text-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.story-video-hero p {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.story-video-hero .section-label,
+.story-video-hero .eyebrow {
+    color: #efc477;
+}
+
+.story-video-hero a:not(.button) {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.story-video-hero a:not(.button):hover {
+    color: #ffffff;
+}
+
+.story-video-hero .button {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background:
+        linear-gradient(135deg,
+            rgba(42, 125, 82, 0.9),
+            rgba(17, 79, 49, 0.94));
+    color: #ffffff;
+    box-shadow:
+        0 14px 34px rgba(3, 22, 13, 0.24);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.story-video-hero .button:hover {
+    background:
+        linear-gradient(135deg,
+            rgba(52, 143, 95, 0.96),
+            rgba(19, 89, 55, 0.98));
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 700px) {
+    .story-video-hero {
+        min-height: 680px;
+    }
+
+    .story-hero-background-video {
+        object-position: 58% center;
+    }
+
+    .story-hero-video-overlay {
+        display: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .story-hero-background-video {
+        display: none;
+    }
+
+    .story-video-hero {
+        background:
+            linear-gradient(90deg,
+                rgba(5, 27, 17, 0.84),
+                rgba(5, 27, 17, 0.48)),
+            url("/images/wareng/jelajah-wareng-drone.jpg") center / cover no-repeat;
+    }
+
+    .story-video-hero::before,
+    .story-video-hero::after {
+        display: none !important;
+    }
+}
+
+/* ==================================================
+   GLOBAL GLASS NAVBAR
+   Beranda, Jelajah Wareng, dan Peta Interaktif
+================================================== */
+
+html body .site-header {
+    position: absolute !important;
+    z-index: 5000 !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+
+    padding: 0.65rem 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Kapsul kaca navbar */
+html body .site-header .container.navbar {
+    position: relative !important;
+    min-height: 50px !important;
+    padding: 0.32rem 0.48rem 0.32rem 0.68rem !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border-radius: 18px !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(11, 37, 24, 0.48),
+            rgba(16, 58, 38, 0.22)) !important;
+
+    box-shadow:
+        0 12px 38px rgba(3, 21, 13, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+
+    backdrop-filter:
+        blur(18px) saturate(150%) !important;
+
+    -webkit-backdrop-filter:
+        blur(18px) saturate(150%) !important;
+}
+
+/* Hilangkan lapisan putih dekoratif lama */
+html body .site-header .container.navbar::before {
+    display: none !important;
+}
+
+html body .site-header .brand,
+html body .site-header .brand:hover {
+    color: #ffffff !important;
+}
+
+html body .site-header .brand-text strong {
+    color: #ffffff !important;
+}
+
+html body .site-header .brand-text small {
+    color: rgba(255, 255, 255, 0.68) !important;
+}
+
+html body .site-header .site-navigation {
+    padding: 0.16rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    box-shadow: none !important;
+}
+
+html body .site-header .site-navigation-link {
+    min-height: 35px !important;
+    padding: 0.44rem 0.84rem !important;
+
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.82) !important;
+}
+
+html body .site-header .site-navigation-link:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+html body .site-header .site-navigation-link.is-active {
+    background: rgba(255, 255, 255, 0.17) !important;
+    color: #ffffff !important;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+        0 8px 22px rgba(0, 0, 0, 0.12) !important;
+}
+
+html body .site-header .site-navigation-icon-button,
+html body .site-header .mobile-navigation-toggle {
+    width: 38px !important;
+    height: 38px !important;
+
+    border-color: rgba(255, 255, 255, 0.16) !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+html body .site-header .site-navigation-icon-button:hover,
+html body .site-header .account-navigation[open] .site-navigation-icon-button {
+    background: rgba(255, 255, 255, 0.17) !important;
+    color: #ffffff !important;
+}
+
+.hero-content,
+.story-video-hero>.container,
+.interactive-map-hero-content {
+    position: relative;
+    z-index: 2;
+    padding-top: clamp(6rem, 9vw, 7.5rem);
+}
+
+.hero-content {
+    padding-top: clamp(5rem, 8vw, 6.5rem);
+}
+
+@media (max-width: 560px) {
+    html body .site-header {
+        padding: 0.4rem 0 !important;
+    }
+
+    html body .site-header .container.navbar {
+        min-height: 44px !important;
+        padding: 0.25rem 0.35rem 0.25rem 0.5rem !important;
+        border-radius: 15px !important;
+    }
+}
+
+/* ==================================================
+   32A — HALAMAN GALERI PETA
+================================================== */
+
+.map-gallery-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    padding:
+        clamp(8.5rem, 13vw, 11rem) 0 clamp(4.5rem, 8vw, 7rem);
+
+    background:
+        linear-gradient(135deg,
+            #082a1b,
+            #123f2a);
+
+    color: #ffffff;
+}
+
+.map-gallery-hero::after {
+    position: absolute;
+    z-index: 2;
+
+    right: -180px;
+    bottom: -330px;
+
+    width: 620px;
+    height: 620px;
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    border-radius: 50%;
+    content: "";
+    pointer-events: none;
+}
+
+.map-gallery-hero-pattern {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+
+    opacity: 0.08;
+
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px,
+            transparent 1px),
+        linear-gradient(90deg,
+            rgba(255, 255, 255, 0.08) 1px,
+            transparent 1px);
+
+    background-size: 54px 54px;
+    pointer-events: none;
+}
+
+.map-gallery-hero-content {
+    position: relative;
+    z-index: 3;
+
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1.2fr) minmax(280px, 0.8fr);
+
+    gap: clamp(3rem, 8vw, 7rem);
+    align-items: end;
+}
+
+.map-gallery-hero-copy {
+    max-width: 760px;
+}
+
+.map-gallery-eyebrow,
+.map-gallery-section-label {
+    margin: 0 0 1rem;
+    color: #edc477;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+}
+
+.map-gallery-hero h1 {
+    max-width: 760px;
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(3.2rem, 7vw, 6.8rem);
+    line-height: 0.92;
+    letter-spacing: -0.065em;
+}
+
+.map-gallery-hero h1 span {
+    display: block;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.map-gallery-hero-copy>p:last-child {
+    max-width: 680px;
+    margin: 1.6rem 0 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: clamp(0.92rem, 1.5vw, 1.08rem);
+    line-height: 1.8;
+}
+
+.map-gallery-summary {
+    display: grid;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    border-radius: 20px;
+
+    background:
+        rgba(8, 35, 23, 0.3);
+
+    box-shadow:
+        0 18px 45px rgba(2, 18, 11, 0.18);
+
+    backdrop-filter:
+        blur(18px) saturate(140%);
+
+    -webkit-backdrop-filter:
+        blur(18px) saturate(140%);
+}
+
+.map-gallery-summary>div {
+    display: grid;
+    min-height: 115px;
+    align-content: center;
+    justify-items: center;
+    gap: 0.2rem;
+    padding: 1rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+    text-align: center;
+}
+
+.map-gallery-summary>div:last-child {
+    border-right: 0;
+}
+
+.map-gallery-summary strong {
+    color: #ffffff;
+    font-size: 1.45rem;
+}
+
+.map-gallery-summary span {
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 0.64rem;
+    line-height: 1.45;
+}
+
+
+/* BAGIAN KOLEKSI */
+
+.map-gallery-section {
+    padding:
+        clamp(4.5rem, 8vw, 7rem) 0;
+    background:
+        linear-gradient(180deg,
+            #f4f7f4,
+            #ffffff);
+}
+
+.map-gallery-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.map-gallery-heading>div {
+    max-width: 650px;
+}
+
+.map-gallery-heading h2 {
+    margin: 0;
+    color: #123d29;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    letter-spacing: -0.045em;
+}
+
+.map-gallery-heading p:last-child {
+    margin: 1rem 0 0;
+    color: #66746b;
+    line-height: 1.7;
+}
+
+.map-gallery-search {
+    display: flex;
+    width: min(360px, 100%);
+    min-height: 48px;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0 1rem;
+    border: 1px solid rgba(38, 91, 63, 0.16);
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow:
+        0 12px 30px rgba(20, 62, 40, 0.07);
+}
+
+.map-gallery-search svg {
+    width: 19px;
+    height: 19px;
+    flex: 0 0 19px;
+    fill: none;
+    stroke: #397655;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+}
+
+.map-gallery-search input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #153d2a;
+    font: inherit;
+    font-size: 0.78rem;
+}
+
+.map-gallery-search input::placeholder {
+    color: #89958d;
+}
+
+
+/* FILTER */
+
+.map-gallery-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2.2rem;
+}
+
+.map-gallery-filter {
+    min-height: 39px;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid rgba(38, 91, 63, 0.15);
+    border-radius: 999px;
+    background: #ffffff;
+    color: #496057;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.7rem;
+    font-weight: 800;
+    transition:
+        color 180ms ease,
+        border-color 180ms ease,
+        background 180ms ease,
+        transform 180ms ease;
+}
+
+.map-gallery-filter:hover {
+    border-color:
+        rgba(38, 91, 63, 0.3);
+    color: #1e6845;
+    transform: translateY(-1px);
+}
+
+.map-gallery-filter.is-active {
+    border-color: transparent;
+    background:
+        linear-gradient(135deg,
+            #277a50,
+            #155637);
+    color: #ffffff;
+    box-shadow:
+        0 9px 24px rgba(26, 91, 58, 0.19);
+}
+
+
+/* GRID DAN KARTU */
+
+.map-gallery-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+    gap: 1.4rem;
+    margin-top: 2rem;
+}
+
+.map-gallery-card {
+    overflow: hidden;
+    border: 1px solid rgba(38, 91, 63, 0.13);
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow:
+        0 18px 46px rgba(20, 62, 40, 0.08);
+    transition:
+        transform 220ms ease,
+        box-shadow 220ms ease,
+        border-color 220ms ease;
+}
+
+.map-gallery-card:hover {
+    border-color:
+        rgba(38, 91, 63, 0.25);
+    box-shadow:
+        0 26px 65px rgba(20, 62, 40, 0.13);
+    transform: translateY(-6px);
+}
+
+.map-gallery-card[hidden] {
+    display: none;
+}
+
+.map-gallery-card-media {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: #dfe9e2;
+}
+
+.map-gallery-card-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 500ms ease;
+}
+
+.map-gallery-card:hover .map-gallery-card-media img {
+    transform: scale(1.035);
+}
+
+.map-gallery-placeholder {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    place-content: center;
+    justify-items: center;
+    gap: 0.75rem;
+    background:
+        linear-gradient(135deg,
+            #dfe9e2,
+            #edf3ef);
+    color: #44715a;
+}
+
+.map-gallery-placeholder svg {
+    width: 48px;
+    height: 48px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.35;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.map-gallery-placeholder span {
+    font-size: 0.72rem;
+    font-weight: 800;
+}
+
+.map-gallery-category,
+.map-gallery-status {
+    position: absolute;
+    top: 0.85rem;
+    display: inline-flex;
+    min-height: 28px;
+    align-items: center;
+    border-radius: 999px;
+    font-size: 0.58rem;
+    font-weight: 900;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.map-gallery-category {
+    left: 0.85rem;
+    padding: 0.4rem 0.65rem;
+    background:
+        rgba(10, 47, 30, 0.82);
+    color: #ffffff;
+}
+
+.map-gallery-status {
+    right: 0.85rem;
+    padding: 0.4rem 0.65rem;
+    background:
+        rgba(255, 255, 255, 0.88);
+    color: #766039;
+}
+
+.map-gallery-status.is-available {
+    background:
+        rgba(215, 246, 226, 0.92);
+    color: #276b45;
+}
+
+.map-gallery-card-body {
+    display: flex;
+    min-height: 260px;
+    flex-direction: column;
+    padding: 1.3rem;
+}
+
+.map-gallery-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #809087;
+    font-size: 0.62rem;
+    font-weight: 750;
+}
+
+.map-gallery-card h3 {
+    margin: 0.65rem 0 0;
+    color: #173f2c;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.map-gallery-card-body>p {
+    margin: 0.75rem 0 1.2rem;
+    color: #6b786f;
+    font-size: 0.72rem;
+    line-height: 1.7;
+}
+
+.map-gallery-actions {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: auto;
+}
+
+.map-gallery-button {
+    display: inline-flex;
+    min-height: 40px;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.8rem;
+    border-radius: 11px;
+    font-size: 0.68rem;
+    font-weight: 850;
+    text-decoration: none;
+}
+
+.map-gallery-button svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.map-gallery-button-primary {
+    background:
+        linear-gradient(135deg,
+            #287c52,
+            #155938);
+    color: #ffffff;
+}
+
+.map-gallery-button-primary:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.map-gallery-button-secondary {
+    border: 1px solid rgba(38, 91, 63, 0.16);
+    background: #f3f7f4;
+    color: #286c49;
+}
+
+.map-gallery-button-secondary:hover {
+    background: #e8f1eb;
+    color: #1e5b3d;
+}
+
+.map-gallery-button-disabled {
+    background: #edf1ee;
+    color: #8c9890;
+    cursor: not-allowed;
+}
+
+
+/* EMPTY DAN INFORMASI */
+
+.map-gallery-empty {
+    margin-top: 2rem;
+    padding: 4rem 1.5rem;
+    border: 1px dashed rgba(38, 91, 63, 0.22);
+    border-radius: 20px;
+    background: #f9fbf9;
+    text-align: center;
+}
+
+.map-gallery-empty svg {
+    width: 40px;
+    height: 40px;
+    fill: none;
+    stroke: #6b8c78;
+    stroke-width: 1.5;
+}
+
+.map-gallery-empty h3 {
+    margin: 1rem 0 0;
+    color: #244d36;
+}
+
+.map-gallery-empty p {
+    margin: 0.5rem 0 0;
+    color: #718078;
+}
+
+.map-gallery-information {
+    display: flex;
+    max-width: 850px;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin: 2rem auto 0;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(182, 136, 56, 0.2);
+    border-radius: 14px;
+    background: #fffaf0;
+}
+
+.map-gallery-information>span {
+    display: inline-flex;
+    width: 25px;
+    height: 25px;
+    flex: 0 0 25px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #e9bc6c;
+    color: #173f2c;
+    font-size: 0.68rem;
+    font-weight: 900;
+}
+
+.map-gallery-information p {
+    margin: 0;
+    color: #756344;
+    font-size: 0.7rem;
+    line-height: 1.65;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 1050px) {
+    .map-gallery-hero-content {
+        grid-template-columns: 1fr;
+    }
+
+    .map-gallery-summary {
+        max-width: 650px;
+    }
+
+    .map-gallery-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 720px) {
+    .map-gallery-heading {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .map-gallery-search {
+        width: 100%;
+    }
+
+    .map-gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 520px) {
+    .map-gallery-hero {
+        padding-top: 7rem;
+    }
+
+    .map-gallery-hero h1 {
+        font-size: clamp(2.8rem, 16vw, 4rem);
+    }
+
+    .map-gallery-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .map-gallery-summary>div {
+        min-height: auto;
+        grid-template-columns: auto 1fr;
+        justify-content: start;
+        gap: 0.8rem;
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        text-align: left;
+    }
+
+    .map-gallery-summary>div:last-child {
+        border-bottom: 0;
+    }
+
+    .map-gallery-actions {
+        flex-direction: column;
+    }
+}
+
+/* ==================================================
+   SECTION KATEGORI PETA DASAR
+================================================== */
+
+.map-gallery-category-section {
+    margin-top: 2.2rem;
+}
+
+.map-gallery-category-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.2rem 1.3rem;
+    border: 1px solid rgba(38, 91, 63, 0.14);
+    border-radius: 18px;
+    background:
+        linear-gradient(135deg,
+            rgba(236, 244, 239, 0.96),
+            rgba(255, 255, 255, 0.98));
+    box-shadow:
+        0 14px 35px rgba(20, 62, 40, 0.07);
+}
+
+.map-gallery-category-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.map-gallery-category-number {
+    display: inline-flex;
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background:
+        linear-gradient(135deg,
+            #287b51,
+            #155638);
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 900;
+    box-shadow:
+        0 10px 25px rgba(25, 89, 57, 0.2);
+}
+
+.map-gallery-category-title>div {
+    display: grid;
+    gap: 0.12rem;
+}
+
+.map-gallery-category-title p {
+    margin: 0;
+    color: #b08036;
+    font-size: 0.6rem;
+    font-weight: 900;
+    letter-spacing: 0.13em;
+}
+
+.map-gallery-category-title h2 {
+    margin: 0;
+    color: #173f2c;
+    font-size: 1.4rem;
+    letter-spacing: -0.03em;
+}
+
+.map-gallery-category-title span:last-child {
+    color: #718078;
+    font-size: 0.7rem;
+    line-height: 1.5;
+}
+
+.map-gallery-category-total {
+    display: grid;
+    min-width: 105px;
+    justify-items: end;
+}
+
+.map-gallery-category-total strong {
+    color: #1d6845;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.map-gallery-category-total span {
+    margin-top: 0.25rem;
+    color: #7e8b83;
+    font-size: 0.62rem;
+}
+
+@media (max-width: 620px) {
+    .map-gallery-category-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .map-gallery-category-total {
+        justify-items: start;
+        padding-left: 4rem;
+    }
+}
+
+/* ==================================================
+   VIDEO HERO GALERI PETA
+================================================== */
+
+.map-gallery-hero-video {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center 48%;
+
+    filter:
+        brightness(1.15) saturate(1.05);
+
+    pointer-events: none;
+}
+
+.map-gallery-hero-overlay {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+
+    background:
+        linear-gradient(90deg,
+            rgba(5, 27, 17, 0.52) 0%,
+            rgba(8, 38, 24, 0.31) 48%,
+            rgba(9, 42, 27, 0.07) 100%),
+        linear-gradient(180deg,
+            rgba(4, 24, 15, 0.07) 0%,
+            rgba(4, 24, 15, 0.04) 55%,
+            rgba(4, 24, 15, 0.4) 100%);
+
+    pointer-events: none;
+}
+
+@media (max-width: 720px) {
+    .map-gallery-hero-video {
+        object-position: 58% center;
+    }
+
+    .map-gallery-hero-overlay {
+        background:
+            linear-gradient(180deg,
+                rgba(5, 27, 17, 0.48) 0%,
+                rgba(5, 27, 17, 0.66) 55%,
+                rgba(5, 27, 17, 0.85) 100%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .map-gallery-hero-video {
+        display: none;
+    }
+
+    .map-gallery-hero {
+        background:
+            linear-gradient(90deg,
+                rgba(5, 27, 17, 0.72),
+                rgba(5, 27, 17, 0.36)),
+            url("/images/wareng/galeri-peta-drone.jpg") center / cover no-repeat;
+    }
+}
+
+#peta-dasar,
+#peta-tematik {
+    scroll-margin-top: 100px;
+}
+
+/* ==================================================
+   NAVBAR DENGAN MENU GALERI PETA
+================================================== */
+
+.site-navigation {
+    gap: 0.1rem !important;
+}
+
+.site-navigation-link {
+    padding-right: 0.72rem !important;
+    padding-left: 0.72rem !important;
+    font-size: 0.7rem !important;
+}
+
+@media (max-width: 1080px) {
+    .site-navigation {
+        display: none !important;
+    }
+
+    .mobile-navigation {
+        display: block !important;
+    }
+}
+
+/* ==================================================
+   32C — MODAL PREVIEW PETA
+================================================== */
+
+.map-preview-open {
+    overflow: hidden;
+}
+
+.map-preview-modal {
+    position: fixed;
+    z-index: 9000;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: clamp(0.7rem, 2vw, 1.5rem);
+}
+
+.map-preview-modal[hidden] {
+    display: none;
+}
+
+.map-preview-backdrop {
+    position: absolute;
+    inset: 0;
+    background:
+        rgba(4, 19, 12, 0.76);
+    opacity: 0;
+    backdrop-filter:
+        blur(12px) saturate(120%);
+    -webkit-backdrop-filter:
+        blur(12px) saturate(120%);
+    transition: opacity 220ms ease;
+}
+
+.map-preview-dialog {
+    position: relative;
+    display: grid;
+    width: min(1380px, 100%);
+    height: min(900px, calc(100vh - 2rem));
+    grid-template-rows:
+        auto minmax(0, 1fr) auto;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 22px;
+    background: #f8faf8;
+    box-shadow:
+        0 35px 100px rgba(0, 0, 0, 0.38);
+    opacity: 0;
+    transform:
+        translateY(22px) scale(0.975);
+    transition:
+        opacity 220ms ease,
+        transform 220ms ease;
+}
+
+.map-preview-modal.is-visible .map-preview-backdrop {
+    opacity: 1;
+}
+
+.map-preview-modal.is-visible .map-preview-dialog {
+    opacity: 1;
+    transform:
+        translateY(0) scale(1);
+}
+
+
+/* HEADER MODAL */
+
+.map-preview-header {
+    display: flex;
+    min-height: 72px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.85rem 1rem 0.85rem 1.2rem;
+    border-bottom: 1px solid rgba(38, 91, 63, 0.13);
+    background:
+        linear-gradient(135deg,
+            #0d3523,
+            #174d34);
+}
+
+.map-preview-heading {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.map-preview-heading-icon {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 13px;
+    background:
+        rgba(255, 255, 255, 0.08);
+    color: #edc477;
+}
+
+.map-preview-heading-icon svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.map-preview-heading>div {
+    display: grid;
+    min-width: 0;
+    gap: 0.1rem;
+}
+
+.map-preview-heading small {
+    color:
+        rgba(255, 255, 255, 0.52);
+    font-size: 0.56rem;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+}
+
+.map-preview-heading h2 {
+    overflow: hidden;
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(0.82rem, 1.5vw, 1rem);
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.map-preview-close {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 13px;
+    background:
+        rgba(255, 255, 255, 0.07);
+    color: #ffffff;
+    cursor: pointer;
+    transition:
+        background 180ms ease,
+        transform 180ms ease;
+}
+
+.map-preview-close:hover {
+    background:
+        rgba(255, 255, 255, 0.16);
+    transform: rotate(4deg);
+}
+
+.map-preview-close svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+}
+
+
+/* ISI PDF */
+
+.map-preview-content {
+    position: relative;
+    min-height: 0;
+    overflow: hidden;
+    background:
+        linear-gradient(135deg,
+            #dde6df,
+            #edf2ee);
+}
+
+.map-preview-loading {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 0.8rem;
+    color: #4e6859;
+}
+
+.map-preview-loading span {
+    width: 34px;
+    height: 34px;
+    border: 3px solid rgba(38, 105, 69, 0.16);
+    border-top-color: #286c49;
+    border-radius: 50%;
+    animation:
+        map-preview-spin 800ms linear infinite;
+}
+
+.map-preview-loading p {
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 750;
+}
+
+@keyframes map-preview-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.map-preview-frame {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: transparent;
+}
+
+
+/* FOOTER MODAL */
+
+.map-preview-footer {
+    display: flex;
+    min-height: 70px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.8rem 1.1rem;
+    border-top: 1px solid rgba(38, 91, 63, 0.13);
+    background: #ffffff;
+}
+
+.map-preview-footer>p {
+    max-width: 600px;
+    margin: 0;
+    color: #748178;
+    font-size: 0.65rem;
+    line-height: 1.55;
+}
+
+.map-preview-actions {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 0.55rem;
+}
+
+.map-preview-action {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.85rem;
+    border-radius: 11px;
+    font-size: 0.66rem;
+    font-weight: 850;
+    text-decoration: none;
+}
+
+.map-preview-action svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.map-preview-action-secondary {
+    border: 1px solid rgba(38, 91, 63, 0.15);
+    background: #f0f5f1;
+    color: #286b49;
+}
+
+.map-preview-action-secondary:hover {
+    background: #e5eee8;
+    color: #1e583d;
+}
+
+.map-preview-action-primary {
+    background:
+        linear-gradient(135deg,
+            #287b51,
+            #145537);
+    color: #ffffff;
+}
+
+.map-preview-action-primary:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+
+/* RESPONSIVE MODAL */
+
+@media (max-width: 720px) {
+    .map-preview-modal {
+        padding: 0;
+    }
+
+    .map-preview-dialog {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: 0;
+    }
+
+    .map-preview-header {
+        min-height: 66px;
+    }
+
+    .map-preview-heading h2 {
+        max-width: 58vw;
+    }
+
+    .map-preview-footer {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 0.7rem;
+    }
+
+    .map-preview-actions {
+        width: 100%;
+    }
+
+    .map-preview-action {
+        flex: 1;
+    }
+}
+
+@media (max-width: 440px) {
+    .map-preview-heading-icon {
+        display: none;
+    }
+
+    .map-preview-footer>p {
+        display: none;
+    }
+
+    .map-preview-actions {
+        flex-direction: column;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .map-preview-backdrop,
+    .map-preview-dialog {
+        transition: none;
+    }
+
+    .map-preview-loading span {
+        animation: none;
+    }
+}
+
+.map-gallery-button {
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.map-gallery-button-disabled {
+    cursor: not-allowed;
+}
+
+/* ==================================================
+   33A — GLOBAL LAYOUT STABILIZER
+================================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.site-main {
+    min-height: 65vh;
+}
+
+img,
+video,
+canvas,
+iframe {
+    max-width: 100%;
+}
+
+img,
+video {
+    display: block;
+}
+
+iframe {
+    border: 0;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* Posisi tujuan navigasi tidak tertutup navbar */
+
+section[id],
+div[id] {
+    scroll-margin-top: 92px;
+}
+
+/* Fokus keyboard */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+    outline: 3px solid rgba(233, 188, 106, 0.88);
+    outline-offset: 3px;
+}
+
+@media (max-width: 720px) {
+    .container {
+        width: min(100% - 1.5rem, 1200px);
+        margin-inline: auto;
+    }
+
+    .site-main {
+        min-height: 55vh;
+    }
+}
+
+@media (max-width: 420px) {
+    .container {
+        width: min(100% - 1rem, 1200px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ==================================================
+   33B — RESPONSIVE CONSISTENCY
+================================================== */
+
+/* Mencegah konten flex dan grid memaksa halaman melebar */
+.navbar,
+.navbar-actions,
+.site-navigation,
+.brand,
+.brand-text,
+.hero-content,
+.map-gallery-hero-content,
+.map-gallery-heading,
+.site-footer-main,
+.site-footer-navigation,
+.site-footer-bottom {
+    min-width: 0;
+}
+
+/* Judul panjang tidak keluar layar */
+h1,
+h2,
+h3,
+p,
+a,
+span,
+small {
+    overflow-wrap: break-word;
+}
+
+/* Tombol tetap nyaman disentuh */
+button,
+.button,
+.map-gallery-button,
+.map-preview-action {
+    touch-action: manipulation;
+}
+
+/* ==================================================
+   NAVBAR RESPONSIVE
+================================================== */
+
+.site-header .container.navbar {
+    width: min(1180px, calc(100% - 2rem));
+    margin-inline: auto;
+}
+
+.site-header .brand {
+    flex: 0 1 auto;
+}
+
+.site-header .brand-text {
+    max-width: 210px;
+}
+
+.site-header .brand-text strong,
+.site-header .brand-text small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.site-header .navbar-actions {
+    flex: 0 0 auto;
+}
+
+.site-navigation-link {
+    white-space: nowrap;
+}
+
+@media (max-width: 1080px) {
+    .site-navigation {
+        display: none !important;
+    }
+
+    .mobile-navigation {
+        display: block !important;
+    }
+
+    .site-header .container.navbar {
+        width: min(100% - 1.5rem, 1180px);
+    }
+}
+
+@media (max-width: 560px) {
+    .site-header .container.navbar {
+        width: calc(100% - 1rem);
+        gap: 0.55rem;
+    }
+
+    .site-header .brand {
+        gap: 0.55rem;
+    }
+
+    .site-header .brand-logo {
+        width: 36px !important;
+        height: 36px !important;
+        flex: 0 0 36px !important;
+    }
+
+    .site-header .brand-text {
+        max-width: 145px;
+    }
+
+    .site-header .brand-text strong {
+        font-size: 0.78rem !important;
+    }
+
+    .site-header .brand-text small {
+        font-size: 0.53rem !important;
+    }
+
+    .site-navigation-icon-button,
+    .mobile-navigation-toggle {
+        width: 36px !important;
+        height: 36px !important;
+        flex: 0 0 36px !important;
+    }
+
+    .navbar-actions {
+        gap: 0.35rem;
+    }
+}
+
+@media (max-width: 370px) {
+    .site-header .brand-text small {
+        display: none;
+    }
+
+    .site-header .brand-text {
+        max-width: 115px;
+    }
+}
+
+/* ==================================================
+   DROPDOWN RESPONSIVE
+================================================== */
+
+.account-navigation-menu,
+.mobile-navigation-menu {
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+@media (max-width: 560px) {
+
+    .account-navigation-menu,
+    .mobile-navigation-menu {
+        position: fixed !important;
+        top: 66px !important;
+        right: 0.5rem !important;
+        left: 0.5rem !important;
+
+        width: auto !important;
+        max-height: calc(100vh - 76px);
+
+        border-radius: 17px !important;
+    }
+}
+
+/* ==================================================
+   HERO BERANDA RESPONSIVE
+================================================== */
+
+.hero {
+    min-height: clamp(620px, 88vh, 900px);
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 780px;
+}
+
+.hero-content h1 {
+    max-width: 760px;
+    font-size: clamp(3rem, 7vw, 6.8rem);
+    line-height: 0.94;
+}
+
+.hero-content>p {
+    max-width: 680px;
+}
+
+@media (max-width: 720px) {
+    .hero {
+        min-height: 720px;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        padding-top: 6.3rem !important;
+        padding-bottom: 4rem;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(2.8rem, 14vw, 4.5rem);
+        line-height: 0.96;
+    }
+
+    .hero-content>p {
+        font-size: 0.88rem;
+        line-height: 1.7;
+    }
+
+    .hero-actions,
+    .hero-buttons {
+        display: flex;
+        align-items: stretch;
+        flex-direction: column;
+        width: 100%;
+        max-width: 340px;
+    }
+
+    .hero-actions .button,
+    .hero-buttons .button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ==================================================
+   HERO JELAJAH RESPONSIVE
+================================================== */
+
+.story-video-hero {
+    min-height: clamp(620px, 84vh, 850px);
+}
+
+.story-video-hero>.container {
+    width: min(1180px, calc(100% - 2rem));
+    margin-inline: auto;
+}
+
+.story-video-hero h1 {
+    max-width: 860px;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    line-height: 0.94;
+}
+
+@media (max-width: 720px) {
+    .story-video-hero {
+        min-height: 720px;
+    }
+
+    .story-video-hero>.container {
+        width: calc(100% - 1.5rem);
+        padding-top: 6.3rem !important;
+        padding-bottom: 4rem;
+    }
+
+    .story-video-hero h1 {
+        font-size: clamp(2.7rem, 14vw, 4.3rem);
+        line-height: 0.98;
+    }
+
+    .story-video-hero p {
+        font-size: 0.86rem;
+        line-height: 1.7;
+    }
+}
+
+/* ==================================================
+   HERO GALERI RESPONSIVE
+================================================== */
+
+.map-gallery-hero-content {
+    width: min(1180px, calc(100% - 2rem));
+    margin-inline: auto;
+}
+
+.map-gallery-hero h1 {
+    overflow-wrap: normal;
+}
+
+@media (max-width: 1050px) {
+    .map-gallery-hero-content {
+        grid-template-columns: 1fr;
+        align-items: start;
+    }
+
+    .map-gallery-summary {
+        width: 100%;
+        max-width: 680px;
+    }
+}
+
+@media (max-width: 720px) {
+    .map-gallery-hero {
+        padding:
+            7.5rem 0 4.5rem;
+    }
+
+    .map-gallery-hero-content {
+        width: calc(100% - 1.5rem);
+        gap: 2.4rem;
+    }
+
+    .map-gallery-hero h1 {
+        font-size: clamp(2.8rem, 15vw, 4.4rem);
+        line-height: 0.98;
+    }
+
+    .map-gallery-hero-copy>p:last-child {
+        font-size: 0.86rem;
+        line-height: 1.7;
+    }
+}
+
+@media (max-width: 520px) {
+    .map-gallery-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .map-gallery-summary>div {
+        min-height: 72px;
+        grid-template-columns: 52px 1fr;
+        align-items: center;
+        justify-items: start;
+
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
+        text-align: left;
+    }
+
+    .map-gallery-summary>div:last-child {
+        border-bottom: 0;
+    }
+
+    .map-gallery-summary strong {
+        font-size: 1.25rem;
+    }
+}
+
+/* ==================================================
+   GALERI PETA RESPONSIVE
+================================================== */
+
+.map-gallery-heading {
+    flex-wrap: wrap;
+}
+
+.map-gallery-filters {
+    max-width: 100%;
+}
+
+.map-gallery-filter {
+    flex: 0 0 auto;
+}
+
+.map-gallery-card {
+    min-width: 0;
+}
+
+.map-gallery-card h3 {
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 720px) {
+    .map-gallery-heading {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .map-gallery-search {
+        width: 100%;
+        max-width: none;
+    }
+
+    .map-gallery-filters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 0.1rem 0 0.7rem;
+
+        scrollbar-width: thin;
+        overscroll-behavior-inline: contain;
+    }
+
+    .map-gallery-filter {
+        white-space: nowrap;
+    }
+
+    .map-gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .map-gallery-category-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .map-gallery-category-total {
+        min-width: 0;
+        justify-items: start;
+        padding-left: 4rem;
+    }
+}
+
+@media (max-width: 440px) {
+    .map-gallery-category-heading {
+        padding: 1rem;
+    }
+
+    .map-gallery-category-title {
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .map-gallery-category-number {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+    }
+
+    .map-gallery-category-total {
+        padding-left: 0;
+    }
+
+    .map-gallery-card-body {
+        min-height: 0;
+        padding: 1.1rem;
+    }
+
+    .map-gallery-actions {
+        flex-direction: column;
+    }
+
+    .map-gallery-button {
+        width: 100%;
+    }
+}
+
+/* ==================================================
+   MODAL PREVIEW RESPONSIVE
+================================================== */
+
+.map-preview-dialog {
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100dvh - 2rem);
+}
+
+@media (max-width: 720px) {
+    .map-preview-dialog {
+        width: 100%;
+        max-width: none;
+        height: 100dvh;
+        max-height: none;
+    }
+
+    .map-preview-header {
+        padding-right: 0.75rem;
+        padding-left: 0.85rem;
+    }
+
+    .map-preview-heading h2 {
+        max-width: calc(100vw - 130px);
+    }
+
+    .map-preview-footer {
+        padding-bottom:
+            max(0.8rem,
+                env(safe-area-inset-bottom));
+    }
+}
+
+/* ==================================================
+   LEAFLET RESPONSIVE
+================================================== */
+
+.leaflet-container {
+    width: 100%;
+    max-width: 100%;
+    font-family: inherit;
+}
+
+#wareng-map {
+    min-height: 480px;
+}
+
+@media (max-width: 720px) {
+    #wareng-map {
+        min-height: 420px;
+    }
+
+    .leaflet-control-layers {
+        max-width: calc(100vw - 3rem);
+        font-size: 0.72rem;
+    }
+
+    .leaflet-popup-content-wrapper {
+        max-width: calc(100vw - 3rem);
+    }
+
+    .leaflet-popup-content {
+        max-width: 260px;
+        margin: 0.85rem;
+    }
+}
+
+/* ==================================================
+   FOOTER RESPONSIVE
+================================================== */
+
+@media (max-width: 950px) {
+    .site-footer-main {
+        grid-template-columns: 1fr;
+    }
+
+    .site-footer-identity {
+        max-width: 560px;
+    }
+}
+
+@media (max-width: 720px) {
+    .site-footer-container {
+        padding-top: 3.5rem;
+    }
+
+    .site-footer-navigation {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+        gap: 2rem 1.5rem;
+    }
+
+    .site-footer-column:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .site-footer-bottom {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+
+    .site-footer-back-to-top {
+        grid-column: auto;
+        grid-row: auto;
+        width: fit-content;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-footer-navigation {
+        grid-template-columns: 1fr;
+    }
+
+    .site-footer-column:last-child {
+        grid-column: auto;
+    }
+
+    .site-footer-development {
+        width: 100%;
+    }
+
+    .site-footer-social-list {
+        gap: 0.5rem;
+    }
+
+    .site-footer-social-link {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+/* ==================================================
+   SEJAJARKAN HERO BERANDA DENGAN NAVBAR
+================================================== */
+
+.hero .container.hero-content {
+    width: calc(100% - 2rem) !important;
+    max-width: none !important;
+    margin-inline: auto !important;
+
+    /*
+     * Jarak ini menyamakan posisi teks hero
+     * dengan posisi logo di dalam navbar.
+     */
+    padding-right: 1rem !important;
+    padding-left: 2rem !important;
+}
+
+/* Batasi lebar isi agar paragraf tidak terlalu memanjang */
+.hero .hero-content h1,
+.hero .hero-content>p,
+.hero .hero-content .hero-actions,
+.hero .hero-content .hero-buttons {
+    max-width: 900px;
+}
+
+@media (max-width: 720px) {
+    .hero .container.hero-content {
+        width: calc(100% - 1rem) !important;
+        padding-right: 0.5rem !important;
+        padding-left: 0.5rem !important;
+    }
+}
+
+/* ==================================================
+   SEJAJARKAN HERO JELAJAH DENGAN NAVBAR
+================================================== */
+
+.story-video-hero>.container {
+    width: calc(100% - 2rem) !important;
+    max-width: none !important;
+    margin-inline: auto !important;
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+    box-sizing: border-box;
+}
+
+/* Menjaga teks tetap nyaman dibaca */
+.story-video-hero h1,
+.story-video-hero .story-hero-description,
+.story-video-hero>.container>p {
+    max-width: 900px;
+}
+
+/* ==================================================
+   ALIGNMENT HERO GLOBAL
+   BERANDA DAN JELAJAH WARENG
+================================================== */
+
+.hero .container.hero-content,
+.story-video-hero>.container {
+    width: calc(100% - 2rem) !important;
+    max-width: none !important;
+    margin-inline: auto !important;
+    padding-right: 1rem !important;
+    padding-left: 2rem !important;
+    box-sizing: border-box;
+}
+
+@media (max-width: 720px) {
+
+    .hero .container.hero-content,
+    .story-video-hero>.container {
+        width: calc(100% - 1rem) !important;
+        padding-right: 0.5rem !important;
+        padding-left: 0.5rem !important;
+    }
+}
+
+/* ==================================================
+   ANIMASI COUNTING STATISTIK BERANDA
+================================================== */
+
+.home-stat-count {
+    display: inline-block;
+    min-width: 2ch;
+    font-variant-numeric: tabular-nums;
+    transform-origin: left bottom;
+    will-change: transform, opacity;
+}
+
+.home-stat-count.is-counting {
+    animation:
+        home-stat-count-pulse 650ms ease-out;
+}
+
+@keyframes home-stat-count-pulse {
+    0% {
+        opacity: 0.35;
+        transform:
+            translateY(8px) scale(0.94);
+    }
+
+    55% {
+        opacity: 1;
+        transform:
+            translateY(-2px) scale(1.035);
+    }
+
+    100% {
+        opacity: 1;
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .home-stat-count {
+        animation: none !important;
+        transform: none !important;
+    }
 }

@@ -3,15 +3,13 @@
 @section('title', $story->title . ' | WebGIS Dusun Wareng')
 
 @section('content')
-    <section class="story-hero">
-        <div class="story-hero-media"
-            @if ($story->cover_image_path) style="
-                    --story-cover-image:
-                    url('{{ asset('storage/' . $story->cover_image_path) }}');
-                " @endif>
-        </div>
+    <section class="story-hero story-video-hero">
+        <video class="story-hero-background-video" autoplay muted loop playsinline preload="auto"
+            poster="{{ asset('images/wareng/jelajah-wareng-drone.jpg') }}" aria-hidden="true">
+            <source src="{{ asset('videos/wareng/jelajah-wareng-drone.mp4') }}" type="video/mp4">
+        </video>
 
-        <div class="story-hero-overlay"></div>
+        <div class="story-hero-video-overlay" aria-hidden="true"></div>
 
         <div class="container story-hero-content">
             <a href="{{ route('home') }}" class="story-back-link">

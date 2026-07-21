@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\FacilityController as AdminFacilityController;
 use App\Http\Controllers\JelajahWarengController;
 use App\Http\Controllers\Admin\StoryController as AdminStoryController;
 use App\Http\Controllers\Admin\StoryChapterController as AdminStoryChapterController;
+use App\Http\Controllers\MapGalleryController;
 
 Route::get('/', function () {
     $facilityCount = Facility::query()
@@ -141,3 +142,8 @@ Route::prefix('admin')
             ]
         )->name('stories.chapters.move-down');
     });
+
+Route::get(
+    '/galeri-peta',
+    MapGalleryController::class
+)->name('maps.gallery');

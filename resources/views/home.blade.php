@@ -306,7 +306,7 @@
                     </div>
 
                     <div class="home-statistic-value">
-                        <strong id="stat-area-value">
+                        <strong id="stat-area-value" class="home-stat-count" data-count="19.75" data-decimals="2">
                             19,75
                         </strong>
 
@@ -343,7 +343,7 @@
                     </div>
 
                     <div class="home-statistic-value">
-                        <strong id="stat-population-value">
+                        <strong id="stat-population-value" class="home-stat-count" data-count="267" data-decimals="0">
                             267
                         </strong>
 
@@ -378,7 +378,7 @@
                     </div>
 
                     <div class="home-statistic-value">
-                        <strong id="stat-household-value">
+                        <strong id="stat-household-value" class="home-stat-count" data-count="84" data-decimals="0">
                             84
                         </strong>
 
@@ -411,13 +411,12 @@
                     </div>
 
                     <div class="home-statistic-value">
-                        <strong id="stat-facility-value">
+                        <strong id="stat-facility-value" class="home-stat-count" data-count="{{ $facilityCount }}"
+                            data-decimals="0">
                             {{ number_format($facilityCount, 0, ',', '.') }}
                         </strong>
 
-                        <span>
-                            fasilitas terpublikasi
-                        </span>
+                        <span>fasilitas terpublikasi</span>
                     </div>
 
                     <div class="home-statistic-content">
@@ -890,4 +889,148 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <script src="{{ asset('js/home-map.js') }}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const counters = document.querySelectorAll(
+                '.home-stat-count'
+            );
+
+            if (!counters.length) {
+                return;
+            }
+
+            const reduceMotion = window.matchMedia(
+                '(prefers-reduced-motion: reduce)'
+            ).matches;
+
+            function formatCounter(value, decimals) {
+                return new Intl.NumberFormat('id-ID', {
+                    minimumFractionDigits: decimals,
+                    maximumFractionDigits: decimals,
+                }).format(value);
+            }
+
+            function showFinalValue(counter) {
+                const target = Number(
+                    counter.dataset.count || 0
+                );
+
+                const decimals = Number(
+                    counter.dataset.decimals || 0
+                );
+
+                counter.textContent = formatCounter(
+                    target,
+                    decimals
+                );
+            }
+
+            if (reduceMotion) {
+                counters.forEach(showFinalValue);
+                return;
+            }
+
+            counters.forEach(function(counter) {
+                const decimals = Number(
+                    counter.dataset.decimals || 0
+                );
+
+                counter.textContent = formatCounter(
+                    0,
+                    decimals
+                );
+            });
+
+            const observer = new IntersectionObserver(
+                function(entries, currentObserver) {
+                    entries.forEach(function(entry) {
+                        if (!entry.isIntersecting) {
+                            return;
+                        }
+
+                        const counter = entry.target;
+                        const target = Number(
+                            counter.dataset.count || 0
+                        );
+
+                        const decimals = Number(
+                            counter.dataset.decimals || 0
+                        );
+
+                        const duration = 1400;
+                        let startTime = null;
+
+                        counter.classList.add(
+                            'is-counting'
+                        );
+
+                        function updateCounter(timestamp) {
+                            if (startTime === null) {
+                                startTime = timestamp;
+                            }
+
+                            const elapsed =
+                                timestamp - startTime;
+
+                            const progress = Math.min(
+                                elapsed / duration,
+                                1
+                            );
+
+                            /*
+                             * Easing agar cepat di awal
+                             * dan melambat menjelang akhir.
+                             */
+                            const easedProgress =
+                                1 - Math.pow(
+                                    1 - progress,
+                                    4
+                                );
+
+                            const currentValue =
+                                target * easedProgress;
+
+                            counter.textContent =
+                                formatCounter(
+                                    currentValue,
+                                    decimals
+                                );
+
+                            if (progress < 1) {
+                                window.requestAnimationFrame(
+                                    updateCounter
+                                );
+
+                                return;
+                            }
+
+                            counter.textContent =
+                                formatCounter(
+                                    target,
+                                    decimals
+                                );
+
+                            counter.classList.remove(
+                                'is-counting'
+                            );
+                        }
+
+                        window.requestAnimationFrame(
+                            updateCounter
+                        );
+
+                        currentObserver.unobserve(counter);
+                    });
+                }, {
+                    threshold: 0.35,
+                    rootMargin: '0px 0px -50px 0px',
+                }
+            );
+
+            counters.forEach(function(counter) {
+                observer.observe(counter);
+            });
+        });
+    </script>
 @endpush

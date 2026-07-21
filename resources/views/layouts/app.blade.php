@@ -14,7 +14,7 @@
 
 </head>
 
-<body id="top" class="{{ request()->routeIs('home') ? 'home-page' : 'inner-page' }}">
+<body id="top">
     <header class="site-header">
         <div class="container navbar">
             <a href="{{ route('home') }}" class="brand" aria-label="Beranda WarengMentereng">
@@ -49,6 +49,12 @@
                         class="site-navigation-link
                     {{ request()->routeIs('map.index') ? 'is-active' : '' }}">
                         Peta Interaktif
+                    </a>
+
+                    <a href="{{ route('maps.gallery') }}"
+                        class="site-navigation-link
+    {{ request()->routeIs('maps.gallery') ? 'is-active' : '' }}">
+                        Galeri Peta
                     </a>
                 </nav>
 
@@ -165,13 +171,22 @@
 
                             <small>Eksplorasi informasi spasial</small>
                         </a>
+
+                        <a href="{{ route('maps.gallery') }}"
+                            class="{{ request()->routeIs('maps.gallery') ? 'is-active' : '' }}">
+                            <span>Galeri Peta</span>
+
+                            <small>
+                                Lihat dan unduh publikasi peta
+                            </small>
+                        </a>
                     </nav>
                 </details>
             </div>
         </div>
     </header>
 
-    <main>
+    <main class="site-main">
         @yield('content')
     </main>
 
@@ -281,6 +296,10 @@
                             <a href="{{ route('map.index') }}">
                                 Peta Interaktif
                             </a>
+
+                            <a href="{{ route('maps.gallery') }}">
+                                Galeri Peta
+                            </a>
                         </nav>
                     </div>
 
@@ -302,6 +321,14 @@
 
                             <a href="{{ route('home') }}#peta-ringkas">
                                 Peta Ringkas
+                            </a>
+
+                            <a href="{{ route('maps.gallery') }}#peta-dasar">
+                                Koleksi Peta Dasar
+                            </a>
+
+                            <a href="{{ route('maps.gallery') }}#peta-tematik">
+                                Koleksi Peta Tematik
                             </a>
                         </nav>
                     </div>
