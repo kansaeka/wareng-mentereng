@@ -144,6 +144,173 @@
                             Memuat data peta...
                         </p>
 
+                        {{-- ==================================================
+     CHECKPOINT 35A — PANEL PETA TEMATIK
+================================================== --}}
+                        <section class="thematic-map-panel" aria-labelledby="thematic-map-title">
+                            <header class="thematic-map-header">
+                                <div>
+                                    <p class="section-label">
+                                        PETA TEMATIK
+                                    </p>
+
+                                    <h3 id="thematic-map-title">
+                                        Jelajahi Data Wilayah
+                                    </h3>
+                                </div>
+
+                                <span id="thematic-map-status" class="thematic-map-status is-idle">
+                                    Belum aktif
+                                </span>
+                            </header>
+
+                            <p class="thematic-map-description">
+                                Pilih tema untuk melihat keterangan,
+                                kesiapan data, dan legenda yang nantinya
+                                digunakan pada peta.
+                            </p>
+
+                            <div class="thematic-map-options" role="list" aria-label="Pilihan peta tematik">
+                                <button type="button" class="thematic-map-option" data-thematic-option
+                                    data-theme="administrasi-rt" aria-pressed="false">
+                                    <span class="thematic-map-option-number">
+                                        01
+                                    </span>
+
+                                    <span class="thematic-map-option-copy">
+                                        <strong>Administrasi RT</strong>
+
+                                        <small>
+                                            Menunggu poligon bangunan
+                                        </small>
+                                    </span>
+                                </button>
+
+                                <button type="button" class="thematic-map-option" data-thematic-option
+                                    data-theme="kepadatan-penduduk" aria-pressed="false">
+                                    <span class="thematic-map-option-number">
+                                        02
+                                    </span>
+
+                                    <span class="thematic-map-option-copy">
+                                        <strong>Kepadatan Penduduk</strong>
+
+                                        <small>
+                                            Menunggu data agregat
+                                        </small>
+                                    </span>
+                                </button>
+
+                                <button type="button" class="thematic-map-option" data-thematic-option
+                                    data-theme="kelayakan-hunian" aria-pressed="false">
+                                    <span class="thematic-map-option-number">
+                                        03
+                                    </span>
+
+                                    <span class="thematic-map-option-copy">
+                                        <strong>Kelayakan Hunian</strong>
+
+                                        <small>
+                                            Menunggu atribut bangunan
+                                        </small>
+                                    </span>
+                                </button>
+
+                                <button type="button" class="thematic-map-option" data-thematic-option
+                                    data-theme="daya-listrik" aria-pressed="false">
+                                    <span class="thematic-map-option-number">
+                                        04
+                                    </span>
+
+                                    <span class="thematic-map-option-copy">
+                                        <strong>Daya Listrik</strong>
+
+                                        <small>
+                                            Menunggu data terverifikasi
+                                        </small>
+                                    </span>
+                                </button>
+
+                                <button type="button" class="thematic-map-option" data-thematic-option
+                                    data-theme="mata-pencaharian" aria-pressed="false">
+                                    <span class="thematic-map-option-number">
+                                        05
+                                    </span>
+
+                                    <span class="thematic-map-option-copy">
+                                        <strong>Mata Pencaharian</strong>
+
+                                        <small>
+                                            Menunggu data agregat RT
+                                        </small>
+                                    </span>
+                                </button>
+
+                                <button type="button" class="thematic-map-option" data-thematic-option
+                                    data-theme="persebaran-umkm" aria-pressed="false">
+                                    <span class="thematic-map-option-number">
+                                        06
+                                    </span>
+
+                                    <span class="thematic-map-option-copy">
+                                        <strong>Persebaran UMKM</strong>
+
+                                        <small class="is-ready">
+                                            Titik usaha tersedia
+                                        </small>
+                                    </span>
+                                </button>
+
+                                <button type="button" class="thematic-map-option" data-thematic-option
+                                    data-theme="jangkauan-internet" aria-pressed="false">
+                                    <span class="thematic-map-option-number">
+                                        07
+                                    </span>
+
+                                    <span class="thematic-map-option-copy">
+                                        <strong>Jangkauan Internet</strong>
+
+                                        <small>
+                                            Menunggu data cakupan
+                                        </small>
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div id="thematic-map-detail" class="thematic-map-detail" aria-live="polite">
+                                <span class="thematic-map-detail-label">
+                                    TEMA TERPILIH
+                                </span>
+
+                                <h4 id="thematic-map-active-title">
+                                    Belum ada tema aktif
+                                </h4>
+
+                                <p id="thematic-map-active-description">
+                                    Pilih salah satu tema di atas untuk
+                                    melihat informasi dan status datanya.
+                                </p>
+
+                                <div id="thematic-map-legend" class="thematic-map-legend">
+                                    <div class="thematic-map-empty-legend">
+                                        Legenda akan muncul setelah
+                                        tema dipilih.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button id="thematic-map-clear-button" class="thematic-map-clear-button" type="button"
+                                disabled>
+                                Nonaktifkan Tema
+                            </button>
+
+                            <p class="thematic-map-note">
+                                Panel ini merupakan struktur awal.
+                                Layer tematik akan dihubungkan setelah
+                                data spasial tersedia dan diverifikasi.
+                            </p>
+                        </section>
+
                         <div class="map-tools-panel">
                             <p class="section-label">
                                 ALAT PETA
@@ -498,8 +665,8 @@
     <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css">
     <style>
         /* ==================================================
-           HERO PETA INTERAKTIF
-        ================================================== */
+                           HERO PETA INTERAKTIF
+                        ================================================== */
 
         .map-page-hero {
             position: relative;
@@ -706,8 +873,8 @@
 
 
         /* ==================================================
-           WORKSPACE PETA
-        ================================================== */
+                           WORKSPACE PETA
+                        ================================================== */
 
         .map-page-section {
             padding: clamp(3.5rem, 7vw, 6rem) 0;
@@ -1131,8 +1298,8 @@
 
 
         /* ==================================================
-           AREA LEAFLET
-        ================================================== */
+                           AREA LEAFLET
+                        ================================================== */
 
         .map-page-content {
             position: sticky;
@@ -1244,8 +1411,8 @@
 
 
         /* ==================================================
-           RESPONSIVE
-        ================================================== */
+                           RESPONSIVE
+                        ================================================== */
 
         @media (max-width: 1100px) {
             .map-page-hero-content {
@@ -1386,6 +1553,261 @@
                     url("/images/wareng/peta-interaktif-drone.jpg") center / cover no-repeat;
             }
         }
+
+        /* ==================================================
+           CHECKPOINT 35A — PANEL PETA TEMATIK
+        ================================================== */
+
+        .thematic-map-panel {
+            display: grid;
+            gap: 0.9rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid rgba(38, 91, 63, 0.14);
+            border-radius: 17px;
+            background:
+                linear-gradient(145deg,
+                    #123c29 0%,
+                    #1d5e3e 100%);
+            box-shadow:
+                0 16px 38px rgba(18, 59, 39, 0.12);
+        }
+
+        .thematic-map-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+
+        .thematic-map-panel .section-label {
+            margin-bottom: 0.35rem;
+            color: #edc477;
+        }
+
+        .thematic-map-panel h3,
+        .thematic-map-panel h4 {
+            margin: 0;
+            color: #ffffff;
+        }
+
+        .thematic-map-panel h3 {
+            font-size: 1rem;
+        }
+
+        .thematic-map-panel h4 {
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+
+        .thematic-map-status {
+            display: inline-flex;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: center;
+            padding: 0.32rem 0.52rem;
+            border-radius: 999px;
+            font-size: 0.52rem;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .thematic-map-status.is-idle {
+            background: rgba(255, 255, 255, 0.11);
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .thematic-map-status.is-pending {
+            background: rgba(237, 196, 119, 0.15);
+            color: #edc477;
+        }
+
+        .thematic-map-status.is-partial {
+            background: rgba(112, 211, 149, 0.15);
+            color: #88dfa7;
+        }
+
+        .thematic-map-description {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.58);
+            font-size: 0.65rem;
+            line-height: 1.65;
+        }
+
+
+        /* PILIHAN TEMA */
+
+        .thematic-map-options {
+            display: grid;
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+            gap: 0.5rem;
+        }
+
+        .thematic-map-option {
+            display: grid;
+            min-width: 0;
+            grid-template-columns: 30px minmax(0, 1fr);
+            gap: 0.55rem;
+            align-items: center;
+            padding: 0.65rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 11px;
+            background: rgba(255, 255, 255, 0.07);
+            color: #ffffff;
+            cursor: pointer;
+            font: inherit;
+            text-align: left;
+            transition:
+                border-color 180ms ease,
+                background 180ms ease,
+                transform 180ms ease;
+        }
+
+        .thematic-map-option:hover {
+            border-color: rgba(237, 196, 119, 0.35);
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .thematic-map-option.is-active {
+            border-color: rgba(237, 196, 119, 0.58);
+            background: rgba(237, 196, 119, 0.14);
+            box-shadow:
+                inset 3px 0 0 #edc477;
+        }
+
+        .thematic-map-option-number {
+            display: inline-flex;
+            width: 28px;
+            height: 28px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #edc477;
+            font-size: 0.52rem;
+            font-weight: 900;
+        }
+
+        .thematic-map-option-copy {
+            display: grid;
+            min-width: 0;
+            gap: 0.08rem;
+        }
+
+        .thematic-map-option-copy strong {
+            overflow-wrap: anywhere;
+            color: #ffffff;
+            font-size: 0.61rem;
+            line-height: 1.35;
+        }
+
+        .thematic-map-option-copy small {
+            color: rgba(255, 255, 255, 0.43);
+            font-size: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .thematic-map-option-copy small.is-ready {
+            color: #8bdfa8;
+        }
+
+
+        /* DETAIL TEMA */
+
+        .thematic-map-detail {
+            display: grid;
+            gap: 0.45rem;
+            padding: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.13);
+            border-radius: 13px;
+            background: rgba(3, 25, 15, 0.2);
+        }
+
+        .thematic-map-detail-label {
+            color: #edc477;
+            font-size: 0.5rem;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+        }
+
+        .thematic-map-detail>p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.58);
+            font-size: 0.61rem;
+            line-height: 1.6;
+        }
+
+        .thematic-map-legend {
+            display: grid;
+            gap: 0.4rem;
+            padding-top: 0.3rem;
+        }
+
+        .thematic-map-legend-item {
+            display: grid;
+            grid-template-columns: 15px minmax(0, 1fr);
+            gap: 0.5rem;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.58rem;
+        }
+
+        .thematic-map-legend-symbol {
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+        }
+
+        .thematic-map-empty-legend {
+            padding: 0.65rem;
+            border: 1px dashed rgba(255, 255, 255, 0.16);
+            border-radius: 9px;
+            color: rgba(255, 255, 255, 0.42);
+            font-size: 0.56rem;
+            line-height: 1.5;
+        }
+
+
+        /* TOMBOL NONAKTIFKAN */
+
+        .thematic-map-clear-button {
+            min-height: 38px;
+            border: 1px solid rgba(255, 255, 255, 0.17);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.61rem;
+            font-weight: 850;
+        }
+
+        .thematic-map-clear-button:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .thematic-map-clear-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.4;
+        }
+
+        .thematic-map-note {
+            margin: 0;
+            padding-top: 0.7rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.11);
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.52rem;
+            line-height: 1.55;
+        }
+
+        @media (max-width: 420px) {
+            .thematic-map-options {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 @endpush
 
@@ -1398,4 +1820,336 @@
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
 
     <script src="{{ asset('js/map-page.js') }}"></script>
+
+    <script>
+        document.addEventListener(
+            'DOMContentLoaded',
+            function() {
+                const thematicOptions =
+                    Array.from(
+                        document.querySelectorAll(
+                            '[data-thematic-option]'
+                        )
+                    );
+
+                const statusElement =
+                    document.getElementById(
+                        'thematic-map-status'
+                    );
+
+                const titleElement =
+                    document.getElementById(
+                        'thematic-map-active-title'
+                    );
+
+                const descriptionElement =
+                    document.getElementById(
+                        'thematic-map-active-description'
+                    );
+
+                const legendElement =
+                    document.getElementById(
+                        'thematic-map-legend'
+                    );
+
+                const clearButton =
+                    document.getElementById(
+                        'thematic-map-clear-button'
+                    );
+
+                if (
+                    !thematicOptions.length ||
+                    !statusElement ||
+                    !titleElement ||
+                    !descriptionElement ||
+                    !legendElement ||
+                    !clearButton
+                ) {
+                    return;
+                }
+
+                const themes = {
+                    'administrasi-rt': {
+                        title: 'Administrasi Bangunan Berdasarkan RT',
+
+                        description: 'Menampilkan pembagian bangunan berdasarkan wilayah RT. Tema ini membutuhkan poligon bangunan dan atribut RT.',
+
+                        status: 'Data dipersiapkan',
+
+                        statusClass: 'is-pending',
+
+                        legend: [{
+                            color: '#4d83b8',
+                            label: 'Wilayah RT',
+                        }, ],
+                    },
+
+                    'kepadatan-penduduk': {
+                        title: 'Kepadatan Penduduk',
+
+                        description: 'Menampilkan tingkat kepadatan penduduk menggunakan data agregat agar informasi pribadi warga tetap terlindungi.',
+
+                        status: 'Data dipersiapkan',
+
+                        statusClass: 'is-pending',
+
+                        legend: [{
+                                color: '#d9e9ce',
+                                label: 'Kepadatan rendah',
+                            },
+                            {
+                                color: '#85b96a',
+                                label: 'Kepadatan sedang',
+                            },
+                            {
+                                color: '#376f42',
+                                label: 'Kepadatan tinggi',
+                            },
+                        ],
+                    },
+
+                    'kelayakan-hunian': {
+                        title: 'Kelayakan Hunian',
+
+                        description: 'Menggambarkan kategori kelayakan hunian tanpa menampilkan identitas pemilik maupun penghuni bangunan.',
+
+                        status: 'Data dipersiapkan',
+
+                        statusClass: 'is-pending',
+
+                        legend: [{
+                                color: '#57a773',
+                                label: 'Layak',
+                            },
+                            {
+                                color: '#e3b453',
+                                label: 'Perlu perhatian',
+                            },
+                            {
+                                color: '#c9685b',
+                                label: 'Belum memenuhi indikator',
+                            },
+                        ],
+                    },
+
+                    'daya-listrik': {
+                        title: 'Persebaran Golongan Daya Listrik',
+
+                        description: 'Menampilkan kategori daya listrik secara spasial tanpa menyertakan nama maupun informasi pelanggan.',
+
+                        status: 'Data dipersiapkan',
+
+                        statusClass: 'is-pending',
+
+                        legend: [{
+                                color: '#f0d66a',
+                                label: 'Daya rendah',
+                            },
+                            {
+                                color: '#e7a543',
+                                label: 'Daya menengah',
+                            },
+                            {
+                                color: '#b96b35',
+                                label: 'Daya tinggi',
+                            },
+                        ],
+                    },
+
+                    'mata-pencaharian': {
+                        title: 'Mata Pencaharian Penduduk',
+
+                        description: 'Menampilkan komposisi atau kategori mata pencaharian dalam bentuk agregasi wilayah RT.',
+
+                        status: 'Data dipersiapkan',
+
+                        statusClass: 'is-pending',
+
+                        legend: [{
+                                color: '#609b63',
+                                label: 'Pertanian',
+                            },
+                            {
+                                color: '#4f82ad',
+                                label: 'Jasa',
+                            },
+                            {
+                                color: '#b7794a',
+                                label: 'Perdagangan dan usaha',
+                            },
+                        ],
+                    },
+
+                    'persebaran-umkm': {
+                        title: 'Persebaran Usaha Milik Warga',
+
+                        description: 'Titik UMKM yang telah dimasukkan melalui fasilitas dapat menjadi dasar visualisasi usaha lokal, termasuk UMKM tempe.',
+
+                        status: 'Titik tersedia',
+
+                        statusClass: 'is-partial',
+
+                        legend: [{
+                            color: '#c98a3c',
+                            label: 'Lokasi UMKM terdata',
+                        }, ],
+                    },
+
+                    'jangkauan-internet': {
+                        title: 'Area Jangkauan Akses Internet',
+
+                        description: 'Menampilkan lokasi BTS, provider, serta perkiraan cakupan jaringan setelah data radius dan kualitas sinyal tersedia.',
+
+                        status: 'Data dipersiapkan',
+
+                        statusClass: 'is-pending',
+
+                        legend: [{
+                                color: '#4d84bf',
+                                label: 'Jangkauan kuat',
+                            },
+                            {
+                                color: '#79acd0',
+                                label: 'Jangkauan sedang',
+                            },
+                            {
+                                color: '#b8d8e8',
+                                label: 'Jangkauan terbatas',
+                            },
+                        ],
+                    },
+                };
+
+                function renderLegend(items) {
+                    legendElement.replaceChildren();
+
+                    items.forEach(function(item) {
+                        const row =
+                            document.createElement('div');
+
+                        row.className =
+                            'thematic-map-legend-item';
+
+                        const symbol =
+                            document.createElement('span');
+
+                        symbol.className =
+                            'thematic-map-legend-symbol';
+
+                        symbol.style.backgroundColor =
+                            item.color;
+
+                        const label =
+                            document.createElement('span');
+
+                        label.textContent =
+                            item.label;
+
+                        row.append(
+                            symbol,
+                            label
+                        );
+
+                        legendElement.appendChild(row);
+                    });
+                }
+
+                function resetThematicPanel() {
+                    thematicOptions.forEach(
+                        function(option) {
+                            option.classList.remove(
+                                'is-active'
+                            );
+
+                            option.setAttribute(
+                                'aria-pressed',
+                                'false'
+                            );
+                        }
+                    );
+
+                    statusElement.className =
+                        'thematic-map-status is-idle';
+
+                    statusElement.textContent =
+                        'Belum aktif';
+
+                    titleElement.textContent =
+                        'Belum ada tema aktif';
+
+                    descriptionElement.textContent =
+                        'Pilih salah satu tema di atas untuk melihat informasi dan status datanya.';
+
+                    legendElement.innerHTML = `
+                    <div class="thematic-map-empty-legend">
+                        Legenda akan muncul setelah
+                        tema dipilih.
+                    </div>
+                `;
+
+                    clearButton.disabled = true;
+                }
+
+                thematicOptions.forEach(
+                    function(option) {
+                        option.addEventListener(
+                            'click',
+                            function() {
+                                const themeKey =
+                                    option.dataset.theme;
+
+                                const theme =
+                                    themes[themeKey];
+
+                                if (!theme) {
+                                    return;
+                                }
+
+                                thematicOptions.forEach(
+                                    function(item) {
+                                        const isActive =
+                                            item === option;
+
+                                        item.classList.toggle(
+                                            'is-active',
+                                            isActive
+                                        );
+
+                                        item.setAttribute(
+                                            'aria-pressed',
+                                            String(isActive)
+                                        );
+                                    }
+                                );
+
+                                statusElement.className =
+                                    'thematic-map-status ' +
+                                    theme.statusClass;
+
+                                statusElement.textContent =
+                                    theme.status;
+
+                                titleElement.textContent =
+                                    theme.title;
+
+                                descriptionElement.textContent =
+                                    theme.description;
+
+                                renderLegend(
+                                    theme.legend
+                                );
+
+                                clearButton.disabled = false;
+                            }
+                        );
+                    }
+                );
+
+                clearButton.addEventListener(
+                    'click',
+                    resetThematicPanel
+                );
+            }
+        );
+    </script>
 @endpush
