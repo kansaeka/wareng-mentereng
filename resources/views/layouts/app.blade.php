@@ -8,7 +8,7 @@
 
     <title>@yield('title', 'WebGIS Dusun Wareng')</title>
 
-    <link rel="stylesheet" href="{{ url('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     @stack('styles')
 
